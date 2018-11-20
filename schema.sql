@@ -1,4 +1,4 @@
-﻿DROP TABLE IF EXISTS camara cascade;
+DROP TABLE IF EXISTS camara cascade;
 DROP TABLE IF EXISTS video cascade;
 DROP TABLE IF EXISTS segmentoVideo cascade;
 
@@ -31,6 +31,7 @@ CREATE TABLE zona (
 
 CREATE TABLE vigia (
   moradaLocal VARCHAR(255) NOT NULL, --tem de ser UNIQUE??
+  camNum VARCHAR(255) ,
   PRIMARY KEY(moradaLocal,camNum),
   -- a camNUm e uma FUNCTION?
   FOREIGN KEY(moradaLocal) REFERENCES zona(moradaLocal) -- ON DELETE CASCADE ON UPDATE CASCADE
@@ -135,11 +136,11 @@ CREATE TABLE audita(
 
 CREATE TABLE solicita(
     idCoordenador NUMERIC(255) NOT NULL ,
-    dataHoraInicioVideo, TIMESTAMP NOT NULL,
+    dataHoraInicioVideo TIMESTAMP NOT NULL,
     camNum VARCHAR(255) NOT NULL,
     dataHoraInicio TIMESTAMP NOT NULL,
     dataHoraFim TIMESTAMP NOT NULL,
     PRIMARY KEY(idCoordenador,dataHoraInicioVideo,camNum),
     FOREIGN KEY(idCoordenador) REFERENCES coordenador(idCoordenador),
-    FOREIGN KEY(dataHoraInicioVideo,camNum) REFERENCES video(dataHoraInicioVideo,camNum)
+    FOREIGN KEY(dataHoraInicioVideo,camNum) REFERENCES video(dataHoraInicio,camNum)
 );
