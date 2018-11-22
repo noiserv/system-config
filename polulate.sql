@@ -18,6 +18,53 @@ INSERT INTO video VALUES ('2', '2018-11-18 12:00:00', '2018-11-18 12:59:59');
 
 
 -- Segmentos de Video
-INSERT INTO segmentoVideo VALUES ('0', '0', '2018-11-18 10:00:00');
+INSERT INTO segmentoVideo VALUES ('0', '0', '2018-11-18 10:00:00','00:00:50');
   /* there seems to be kind of a designflaw here, because we can only have segments that
   match the exact time of a video and not inbetween videos FIXME */
+--INSERT INTO segmentoVideo VALUES ('0', '0', '2018-11-18 10:00:00','00:00:50');
+
+INSERT INTO zona VALUES ('Rua Joao Chagas 12,Lisboa');
+INSERT INTO zona VALUES('Rua Alves Redol 2,Lisboa');
+
+INSERT INTO vigia VALUES('Rua Alves Redol 2,Lisboa','0');
+INSERT INTO vigia VALUES ('Rua Joao Chagas 12,Lisboa','1');
+
+--INSERT INTO processoSocorro VALUES ('') como por NULL no numProcesso?
+INSERT INTO processoSocorro VALUES ('0');
+INSERT INTO processoSocorro VALUES ('1');
+
+INSERT INTO eventoEmergencia VALUES ('MARIA DUARTE','Rua Joao Chagas 12,Lisboa','0','926678868','2018-11-18 10:00:00');
+
+INSERT INTO entidadeMeio VALUES ('primeiro');
+INSERT INTO entidadeMeio VALUES ('segundo');
+INSERT INTO entidadeMeio VALUES ('terceiro');
+INSERT INTO entidadeMeio VALUES ('quarto');
+INSERT INTO entidadeMeio VALUES ('quinto');
+
+INSERT INTO meio VALUES ('0','red','primeiro');
+INSERT INTO meio VALUES ('1','blue','segundo');
+INSERT INTO meio VALUES ('2','geen','terceiro');
+INSERT INTO meio VALUES ('3','black','quarto');
+
+INSERT INTO meioCombate VALUES ('3','quarto');
+INSERT INTO meioCombate VALUES ('0','primeiro');
+INSERT INTO meioApoio VALUES ('2','terceiro');
+INSERT INTO meioSocorro VALUES ('1','segundo');
+
+INSERT INTO transporta VALUES ('1','segundo','0','7');
+
+INSERT INTO alocado VALUES ('2','terceiro','1','12');
+
+INSERT INTO acciona VALUES ('0','primeiro','1');
+INSERT INTO acciona VALUES ('1','segundo','0');
+
+INSERT INTO coordenador VALUES ('0');
+INSERT INTO coordenador VALUES ('1');
+
+INSERT INTO audita VALUES ('0','0','primeiro','1','2018-12-20 10:00:00', '2018-12-20 22:00:00', '2018-12-20 09:00:00','quero auditar');
+
+INSERT INTO solicita VALUES ('0','2018-11-18 10:00:00','0','2018-11-21 10:00:00','2018-11-22 10:00:00');
+
+															
+
+
