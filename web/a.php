@@ -2,7 +2,7 @@
     <meta http-equiv="content-type" content="text/html" charset="utf-8"/>
     <body>
 <?php
-  try {
+  try  {
     $host = "db.ist.utl.pt";
     $user ="ist186414";
     $password = "hlaa6040";
