@@ -96,11 +96,6 @@
     }
     echo("</table>\n");
 
-    $sql = "SELECT numProcessoSocorro FROM processoSocorro;";
-    $result = $db->prepare($sql);
-    $result->execute();
-
-
     echo("<div style='text-align:center'>");
     echo("  <br><br>");
     echo("  <form action='d1.php' method='post'>");
