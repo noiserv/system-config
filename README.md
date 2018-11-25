@@ -12,19 +12,19 @@ just a very basic system setup to play around with
 7. `git push` para enviar para o servidor as modificações
 
 # Tarefas
-* populate.sql -> script to generate 100s of stuff
 
 ## noiserv
-* **schema.sql** (tomorrow)
+* **schema.sql**
 * queries.sql 2
 * queries.sql 5
 
 ## smurf
 * web a) -> f)
+* populate.sql -> script to generate 100s of stuff
 * queries.sql 3
 * queries.sql 4
 
 ## ria
-* **schema.sql** (tomorrow)
+* **schema.sql**
 * queries.sql 1
 * queries.sql 6
