@@ -38,7 +38,7 @@
     $sql = "SELECT numTelefone, instanteChamada, numProcessoSocorro FROM eventoEmergencia;";
     $result = $db->prepare($sql);
     $result->execute();
-    echo("<br><br><br>");
+    echo("<div style='text-align:center'>");
     echo("<h1 align='center'><strong>Associacoes atuais</h1>");
     echo("<p align='center'><strong>Processos de Socorro <-> Eventos Emergenicia (pode ser NULL)</p>");
     echo("<table border='1' align='center'>");
@@ -107,8 +107,8 @@
 ?>
       <br><br>
 
-      <form action='d1.php' method='post'>
-        <a href="http://web.tecnico.ulisboa.pt/ist186474/d.html"><buttom type='buttom'>Voltar</buttom></a>
+      <form alingn="center" action='d1.php' method='post'>
+        <a href="http://web.tecnico.ulisboa.pt/ist186474/d.html"><buttom class="btn btn-info" type='buttom'>Voltar</buttom></a>
       </form>
     </div>
   </body>

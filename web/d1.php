@@ -137,7 +137,7 @@
       <br><br>
 
       <form action='d1.php' method='post'>
-        <a href="http://web.tecnico.ulisboa.pt/ist186474/d.html"><buttom type='buttom'>Voltar</buttom></a>
+        <a href="http://web.tecnico.ulisboa.pt/ist186474/d.html"><buttom class="btn btn-info" type='buttom'>Voltar</buttom></a>
       </form>
     </div>
   </body>
