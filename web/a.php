@@ -140,7 +140,7 @@
           <p><input type='hidden' name='mode' value='add'/></p>
           <p><input type='hidden' name='type' value='zona'/></p>
           <p>morada: <input type='text' name='morada'/></p>
-          <button type='submit' value='submit'>Sumit</button>
+          <button type='submit' value='submit'>Submit</button>
         </form>
         <br><br>
         <form action='a.php' method='post' style="margin-top:180px">
@@ -152,14 +152,14 @@
           <p>numprocesso: <input type='number' name='numprocesso'/></p>
           <p>telefone: <input type='text' name='telefone'/></p>
           <p>chamada: <input type='text' name='chamada'/></p>
-          <button type='submit' value='submit'>Sumit</button>
+          <button type='submit' value='submit'>Submit</button>
         </form>
         <form action='a.php' method='post'>
           <h3>Adicionar novo Processo de Socorro</h3>
           <p><input type='hidden' name='mode' value='add'/></p>
           <p><input type='hidden' name='type' value='processoSocorro'/></p>
           <p>numprocesso: <input type='number' name='numprocesso'/></p>
-          <button type='submit' value='submit'>Sumit</button>
+          <button type='submit' value='submit'>Submit</button>
         </form>
 
       </div>
