@@ -1,6 +1,10 @@
 <html>
+  <head>
+    <title> a </title>
     <meta http-equiv="content-type" content="text/html" charset="utf-8"/>
-    <body>
+  </head>
+  <body>
+
 <?php
   try  {
     $host = "db.ist.utl.pt";
@@ -151,7 +155,7 @@
           <p>morada: <input type='text' name='morada'/></p>
           <p>numprocesso: <input type='number' name='numprocesso'/></p>
           <p>telefone: <input type='text' name='telefone'/></p>
-          <p>chamada: <input type='text' name='chamada'/></p>
+          <p>chamada: <input id="chamada" type='text' name='chamada' placeholder="2018-11-18 10:00:00"/></p>
           <button type='submit' value='submit'>Submit</button>
         </form>
         <form action='a.php' method='post'>
