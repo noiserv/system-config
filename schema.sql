@@ -1,4 +1,4 @@
-DROP TABLE IF EXISTS camara cascade;
+﻿DROP TABLE IF EXISTS camara cascade;
 DROP TABLE IF EXISTS video cascade;
 DROP TABLE IF EXISTS segmentoVideo cascade;
 DROP TABLE IF EXISTS zona cascade;
@@ -44,7 +44,7 @@ CREATE TABLE segmentoVideo (
 );
 
 CREATE TABLE zona (
-    moradaLocal VARCHAR(255) unique,
+    moradaLocal VARCHAR(255) UNIQUE NOT NULL CHECK (moradaLocal <> ''), -- checks if it is not an empty string
     PRIMARY KEY(moradaLocal)
 );
 
