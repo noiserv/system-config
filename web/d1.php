@@ -20,7 +20,8 @@
     $result = $db->prepare($sql);
     $result->execute();
     echo("<br><br><br>");
-    echo("<p align=\"CENTER\"><strong>Meios</p>\n");
+    echo("<h3 align=\"CENTER\"><strong>Associacoes atuais</h3>\n");
+    echo("<p align=\"CENTER\"><strong>Processos de Socorro <-> Meios</p>\n");
     echo("<table border=\"1\" align=\"CENTER\">\n");
     echo("<tr><td><strong>N&uacutemero dos Meios:</td><td><strong>Nome das Entidades:</td><td><strong>N&uacutemero dos Processos:</td></tr>\n");
 
