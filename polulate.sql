@@ -1,4 +1,4 @@
--- Camaras de Vigilancia
+﻿-- Camaras de Vigilancia
 INSERT INTO camara VALUES ('0');
 INSERT INTO camara VALUES ('1');
 INSERT INTO camara VALUES ('2');
@@ -25,15 +25,22 @@ INSERT INTO segmentoVideo VALUES ('0', '0', '2018-11-18 10:00:00','00:00:50');
 
 INSERT INTO zona VALUES ('Rua Joao Chagas 12,Lisboa');
 INSERT INTO zona VALUES('Rua Alves Redol 2,Lisboa');
+INSERT INTO zona VALUES ('Rua das Caracoletas, Lisboa');
+INSERT INTO zona VALUES ('Rua Joao CShagas 12, Lisboa');
+INSERT INTO zona VALUES ('Rua das Nikolettas 1Dto, Lisboa');
 
 INSERT INTO vigia VALUES('Rua Alves Redol 2,Lisboa','0');
 INSERT INTO vigia VALUES ('Rua Joao Chagas 12,Lisboa','1');
+
 
 --INSERT INTO processoSocorro VALUES ('') como por NULL no numProcesso?
 INSERT INTO processoSocorro VALUES ('0');
 INSERT INTO processoSocorro VALUES ('1');
 
 INSERT INTO eventoEmergencia VALUES ('MARIA DUARTE','Rua Joao Chagas 12,Lisboa','0','926678868','2018-11-18 10:00:00');
+INSERT INTO eventoEmergencia VALUES ('PEDRO','Rua das Caracoletas, Lisboa',NULL,'926679868','2018-10-19 10:00:00');
+INSERT INTO eventoEmergencia VALUES ('Soraia','Rua Joao CShagas 12, Lisboa',NULL,'926670868','2018-12-18 10:00:00');
+INSERT INTO eventoEmergencia VALUES ('Nika','Rua das Nikolettas 1Dto, Lisboa',NULL,'921552918','2018-11-18 20:00:00');
 
 INSERT INTO entidadeMeio VALUES ('primeiro');
 INSERT INTO entidadeMeio VALUES ('segundo');
