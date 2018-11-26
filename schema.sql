@@ -53,7 +53,7 @@ CREATE TABLE vigia (
   camNum NUMERIC(255) ,
   PRIMARY KEY(moradaLocal,camNum),
   -- a camNUm e uma FUNCTION?
-  FOREIGN KEY(moradaLocal) REFERENCES zona(moradaLocal) -- ON DELETE CASCADE ON UPDATE CASCADE
+  FOREIGN KEY(moradaLocal) REFERENCES zona(moradaLocal)  ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE processoSocorro (
@@ -69,7 +69,7 @@ CREATE TABLE eventoEmergencia (
   instanteChamada TIMESTAMP unique,
   -- duration FIXME, -- defnir o formato
   PRIMARY KEY(numTelefone, nomePessoa),
-  FOREIGN KEY(moradaLocal) REFERENCES zona(moradaLocal),
+  FOREIGN KEY(moradaLocal) REFERENCES zona(moradaLocal) ON DELETE CASCADE ON UPDATE CASCADE,
   FOREIGN KEY(numProcessoSocorro) REFERENCES processoSocorro(numProcessoSocorro)  ON DELETE CASCADE ON UPDATE CASCADE
 );
 
@@ -84,7 +84,7 @@ CREATE TABLE meio(
   nomeMeio VARCHAR(255) NOT NULL,
   nomeEntidade VARCHAR(255) NOT NULL,
   PRIMARY KEY(numMeio, nomeEntidade),
-  FOREIGN KEY(nomeEntidade) REFERENCES entidadeMeio(nomeEntidade)
+  FOREIGN KEY(nomeEntidade) REFERENCES entidadeMeio(nomeEntidade)  ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE meioCombate(
@@ -114,8 +114,8 @@ CREATE TABLE transporta(
   numProcessoSocorro NUMERIC(255) ,
   numVitimas NUMERIC(255) NOT NULL,
   PRIMARY KEY(numMeio, nomeEntidade,numProcessoSocorro),
-  FOREIGN KEY(numProcessoSocorro) REFERENCES processoSocorro(numProcessoSocorro),
-  FOREIGN KEY(numMeio,nomeEntidade) REFERENCES meioSocorro(numMeio, nomeEntidade)
+  FOREIGN KEY(numProcessoSocorro) REFERENCES processoSocorro(numProcessoSocorro) ON DELETE CASCADE ON UPDATE CASCADE,
+  FOREIGN KEY(numMeio,nomeEntidade) REFERENCES meioSocorro(numMeio, nomeEntidade)  ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE alocado(
@@ -124,8 +124,8 @@ CREATE TABLE alocado(
   numProcessoSocorro NUMERIC(255) ,
   numHoras NUMERIC(255) NOT NULL,
   PRIMARY KEY(numMeio, nomeEntidade,numProcessoSocorro),
-  FOREIGN KEY(numProcessoSocorro) REFERENCES processoSocorro(numProcessoSocorro),
-  FOREIGN KEY(numMeio,nomeEntidade) REFERENCES meioApoio(numMeio, nomeEntidade)
+  FOREIGN KEY(numProcessoSocorro) REFERENCES processoSocorro(numProcessoSocorro) ON DELETE CASCADE ON UPDATE CASCADE,
+  FOREIGN KEY(numMeio,nomeEntidade) REFERENCES meioApoio(numMeio, nomeEntidade)  ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE acciona(
@@ -133,8 +133,8 @@ CREATE TABLE acciona(
   nomeEntidade VARCHAR(255) NOT NULL,
   numProcessoSocorro NUMERIC(255) ,
   PRIMARY KEY(numMeio, nomeEntidade,numProcessoSocorro),
-  FOREIGN KEY(numProcessoSocorro) REFERENCES processoSocorro(numProcessoSocorro),
-  FOREIGN KEY(numMeio,nomeEntidade) REFERENCES meio(numMeio, nomeEntidade)
+  FOREIGN KEY(numProcessoSocorro) REFERENCES processoSocorro(numProcessoSocorro)  ON DELETE CASCADE ON UPDATE CASCADE,
+  FOREIGN KEY(numMeio,nomeEntidade) REFERENCES meio(numMeio, nomeEntidade)  ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE coordenador (
@@ -152,8 +152,8 @@ CREATE TABLE audita(
   dataAuditoria TIMESTAMP NOT NULL,
   texto VARCHAR(255) , --texto pode ser null?
   PRIMARY KEY(idCoordenador, numMeio, nomeEntidade,numProcessoSocorro),
-  FOREIGN KEY(idCoordenador) REFERENCES coordenador(idCoordenador),
-  FOREIGN KEY(numMeio,nomeEntidade,numProcessoSocorro) REFERENCES acciona(numMeio, nomeEntidade,numProcessoSocorro)
+  FOREIGN KEY(idCoordenador) REFERENCES coordenador(idCoordenador)  ON DELETE CASCADE ON UPDATE CASCADE,
+  FOREIGN KEY(numMeio,nomeEntidade,numProcessoSocorro) REFERENCES acciona(numMeio, nomeEntidade,numProcessoSocorro)  ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE solicita(
@@ -163,6 +163,6 @@ CREATE TABLE solicita(
     dataHoraInicio TIMESTAMP NOT NULL,
     dataHoraFim TIMESTAMP NOT NULL,
     PRIMARY KEY(idCoordenador,dataHoraInicioVideo,camNum),
-    FOREIGN KEY(idCoordenador) REFERENCES coordenador(idCoordenador),
-    FOREIGN KEY(dataHoraInicioVideo,camNum) REFERENCES video(dataHoraInicio,camNum)
+    FOREIGN KEY(idCoordenador) REFERENCES coordenador(idCoordenador) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY(dataHoraInicioVideo,camNum) REFERENCES video(dataHoraInicio,camNum) ON DELETE CASCADE ON UPDATE CASCADE
 );
