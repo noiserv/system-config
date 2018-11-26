@@ -6,13 +6,7 @@
 <?php
   header('Content-Type: text/html; charset=utf-8');
   try {
-    $host = "db.ist.utl.pt";
-    $user ="ist186414";
-    $password = "hlaa6040";
-    $dbname = $user;
-
-    $db = new PDO("pgsql:host=$host;dbname=$dbname", $user, $password);
-    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    include 'config.php';
 
     $sql = "SELECT numMeio,nomeEntidade FROM meioSocorro NATURAL JOIN acciona NATURAL JOIN eventoEmergencia;";
     $result = $db->prepare($sql);

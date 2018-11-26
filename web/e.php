@@ -5,13 +5,7 @@
   <body>
 <?php
   try {
-    $host = "db.ist.utl.pt";
-    $user ="ist186414";
-    $password = "hlaa6040";
-    $dbname = $user;
-
-    $db = new PDO("pgsql:host=$host;dbname=$dbname", $user, $password);
-    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    include 'config.php';
 
     $sql = "SELECT numMeio,nomeEntidade FROM acciona;";
     $result = $db->prepare($sql);
