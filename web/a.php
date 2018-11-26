@@ -22,7 +22,6 @@
         $result = $db->prepare("INSERT INTO zona VALUES(:moradaLocal);");
         $result->bindParam(':moradaLocal', $_REQUEST['morada']);
         $result->execute();
-
       } elseif ($type == "eventoEmergencia") {
         $result = $db->prepare("INSERT INTO zona VALUES(:moradaLocal);");
         $result->bindParam(':moradaLocal', $_REQUEST['morada']);
@@ -45,23 +44,35 @@
         $result->bindParam(':numProcessoSocorro', $_REQUEST['numprocesso']);
         $result->execute();
       }
+      elseif ($type == "meio") {
+        $result = $db->prepare("INSERT INTO entidadeMeio VALUES(:nomeEntidade);");
+        $result->bindParam(':nomeEntidade', $_REQUEST['nomeentidade']);
+        $result->execute();
+
+        $result = $db->prepare("INSERT INTO meio VALUES(:numMeio, :nomeMeio, :nomeEntidade);");
+        $result->bindParam(':numMeio', $_REQUEST['nummeio']);
+        $result->bindParam(':nomeMeio', $_REQUEST['nomemeio']);
+        $result->bindParam(':nomeEntidade', $_REQUEST['nomeentidade']);
+        $result->execute();
+      } elseif ($type == "entidade") {
+        $result = $db->prepare("INSERT INTO entidadeMeio VALUES(:nomeEntidade);");
+        $result->bindParam(':nomeEntidade', $_REQUEST['nomeentidade']);
+        $result->execute();
+      }
     }
 
     if ($mode == "delete") {
       if ($type == "zona") {
-        $prep = $db->prepare("DELETE FROM zona WHERE moradaLocal = :moradaDel;");
-        $prep->bindParam(':moradaDel', $_REQUEST['id']);
-        $prep->execute();
-      } elseif ($type == "eventoEmergencia") {
         $prep = $db->prepare("DELETE FROM zona WHERE moradaLocal = :morada;");
         $prep->bindParam(':morada', $_REQUEST['id']);
         $prep->execute();
+      } elseif ($type == "eventoEmergencia" or $type == "processoSocorro") {
         $prep = $db->prepare("DELETE FROM processoSocorro WHERE numProcessoSocorro = :numprocesso;");
         $prep->bindParam(':numprocesso', $_REQUEST['id2']);
         $prep->execute();
-      } elseif ($type == "processoSocorro") {
-        $prep = $db->prepare("DELETE FROM processoSocorro WHERE numProcessoSocorro = :numprocesso;");
-        $prep->bindParam(':numprocesso', $_REQUEST['id']);
+      }elseif ($type == "meio" or $type == "entidade") {
+        $prep = $db->prepare("DELETE FROM entidadeMeio WHERE nomeEntidade = :nomeentidade;");
+        $prep->bindParam(':nomeentidade', $_REQUEST['id']);
         $prep->execute();
       }
     }
@@ -72,7 +83,7 @@
 
     echo("<br><br>");
     echo("<h1 align=\"CENTER\"><strong>Zonas</h1>\n");
-    echo("<table border=\"1\" align=\"CENTER\">\n");
+    echo("<table border=\"2\" align=\"CENTER\">\n");
     echo("<tr><td><b><strong>Moradas:</b></td><td></td></tr>\n");
 
     foreach($result as $row) {
@@ -88,7 +99,7 @@
 
     echo("<br><br><br><br><br><br>");
     echo("<h1 align=\"CENTER\"><strong>Eventos de Emerg&ecirc;ncia</h1>\n");
-    echo("<table border=\"1\" align=\"CENTER\">\n");
+    echo("<table border=\"2\" align=\"CENTER\">\n");
     echo("<tr><td><b><strong>Moradas:</b></td><td><b><strong>N&uacute;mero de Processo:</b></td><td><b><strong>Nome da Pessoa:</b></td><td><b><strong>N&uacute;mero de Telefone:</b></td><td><b><strong>Instante Chamada:</b></td><td></td></tr>\n");
 
     foreach($result as $row)
@@ -113,7 +124,7 @@
 
     echo("<br><br>");
     echo("<h1 align=\"CENTER\"><strong>Processos de Socorro</h1>\n");
-    echo("<table border=\"1\" align=\"CENTER\">\n");
+    echo("<table border=\"2\" align=\"CENTER\">\n");
     echo("<tr><td><b><strong>Números:</b></td><td></td></tr>\n");
 
     foreach($result as $row)
@@ -121,6 +132,44 @@
       echo("<tr><td align=\"CENTER\">");
       echo($row['numprocessosocorro']);
       echo("</td><td><a href=\"a.php?mode=delete&type=processoSocorro&id={$row['numprocessosocorro']}\">delete</a></td></tr>\n");
+    }
+    echo("</table>\n");
+
+    
+    $prep = $db->prepare("SELECT numMeio, nomeMeio, nomeEntidade FROM meio;");
+    $prep->execute();
+    $result = $prep->fetchAll();
+
+    echo("<br><br><br><br><br><br>");
+    echo("<h1 align=\"CENTER\"><strong>Meios</h1>\n");
+    echo("<table border=\"2\" align=\"CENTER\">\n");
+    echo("<tr><td align=\"CENTER\"><b><strong>N&uacute;mero dos Meios:</b></td><td align=\"CENTER\"><b><strong>Nome dos Meios:</b></td><td align=\"CENTER\"><b><strong>Nome das Entidades:</b></td><td></td></tr>\n");
+
+    foreach($result as $row)
+    {
+        echo("<tr><td align=\"CENTER\">");
+        echo($row['nummeio']);
+        echo("</td><td align=\"CENTER\">");
+        echo($row['nomemeio']);
+        echo("</td><td align=\"CENTER\">");
+        echo($row['nomeentidade']);
+        echo("</td><td><a href=\"a.php?mode=delete&type=eventoEmergencia&id={$row['nummeio']}&id2={$row['nomemeio']}&id3={$row['nomeentidade']}\">delete</a></td></tr>\n");
+    }
+    echo("</table>\n");
+
+    $prep = $db->prepare("SELECT nomeEntidade FROM entidadeMeio;");
+    $prep->execute();
+    $result = $prep->fetchAll();
+
+    echo("<br><br>");
+    echo("<h1 align=\"CENTER\"><strong>Entidades</h1>\n");
+    echo("<table border=\"2\" align=\"CENTER\">\n");
+    echo("<tr><td><b><strong>Nomes:</b></td><td></td></tr>\n");
+
+    foreach($result as $row) {
+      echo("<tr><td align=\"CENTER\">");
+      echo($row['nomeentidade']);
+      echo("</td><td><a href=\"a.php?mode=delete&type=entidade&id={$row['nomeentidade']}\">delete</a></td></tr>\n");
     }
     echo("</table>\n");
 
@@ -137,7 +186,7 @@
           <p><input type='hidden' name='mode' value='add'/></p>
           <p><input type='hidden' name='type' value='zona'/></p>
           <p>morada: <input type='text' name='morada'/></p>
-          <button type='submit' value='submit'>Submit</button>
+          <button class="btn btn-info" type='submit' value='submit'>Submit</button>
         </form>
         <br><br>
         <form action='a.php' method='post' style="margin-top:180px">
@@ -149,15 +198,44 @@
           <p>numprocesso: <input type='number' name='numprocesso'/></p>
           <p>telefone: <input type='text' name='telefone'/></p>
           <p>chamada: <input id="chamada" type='text' name='chamada' placeholder="2018-11-18 10:00:00"/></p>
-          <button type='submit' value='submit'>Submit</button>
+          <button class="btn btn-info" type='submit' value='submit'>Submit</button>
         </form>
         <form action='a.php' method='post'>
           <h3>Adicionar novo Processo de Socorro</h3>
           <p><input type='hidden' name='mode' value='add'/></p>
           <p><input type='hidden' name='type' value='processoSocorro'/></p>
           <p>numprocesso: <input type='number' name='numprocesso'/></p>
-          <button type='submit' value='submit'>Submit</button>
+          <button class="btn btn-info" type='submit' value='submit'>Submit</button>
         </form>
+
+        <form action='a.php' method='post'>
+          <h3>Adicionar novo Meio</h3>
+          <p><input type='hidden' name='mode' value='add'/></p>
+          <p><input type='hidden' name='type' value='meio'/></p>
+          <p>numMeio: <input type='number' name='nummeio'/></p>
+          <p>nomeMeio: <input type='text' name='nomemeio'/></p>
+          <p>nomeEntidade: <input type='text' name='nomeentidade'/></p>
+          <button class="btn btn-info" type='submit' value='submit'>Sumit</button>
+        </form>
+
+        <form action='a.php' method='post'>
+          <h3>Adicionar novo Meio</h3>
+          <p><input type='hidden' name='mode' value='add'/></p>
+          <p><input type='hidden' name='type' value='meio'/></p>
+          <p>numMeio: <input type='number' name='nummeio'/></p>
+          <p>nomeMeio: <input type='text' name='nomemeio'/></p>
+          <p>nomeEntidade: <input type='text' name='nomeentidade'/></p>
+          <button class="btn btn-info" type='submit' value='submit'>Sumit</button>
+        </form>
+
+        <form action='a.php' method='post'>
+          <h3>Adicionar nova Entidade</h3>
+          <p><input type='hidden' name='mode' value='add'/></p>
+          <p><input type='hidden' name='type' value='entidade'/></p>
+          <p>nomeEntidade: <input type='text' name='nomeentidade'/></p>
+          <button class="btn btn-info" type='submit' value='submit'>Sumit</button>
+        </form>
+
 
       </div>
   </body>

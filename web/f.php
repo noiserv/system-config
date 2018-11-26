@@ -50,9 +50,9 @@
 
     <p><input type='hidden' name='mode' value='get'/></p>
     <p><input type='hidden' name='type' value='morada'/></p>
-    <p>morada: <input type='text' name='moradaLocal'/></p>
+    <p>morada: <input type='text' name='morada'/></p>
     <button type='get' value='get'>Submit</button>
-    <a href="index.html"><buttom type='buttom'>Voltar</buttom></a>
+    <a href="index.html"><button type='buttom'>Voltar</button></a>
 
     </form>
   </div>
