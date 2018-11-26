@@ -38,9 +38,12 @@
   -- Liste os Meios de combate que não foram usados como Meios de Apoio em nenhum
   -- processo de socorro;
 
-  -- PARECIDO A PERGUNTA 7 DO ENUNCIADO PASSADO
+  -- FIXME verificar isto
+SELECT nummeio, nomeentidade FROM (
+  SELECT nummeio, nomeentidade FROM meioCombate NATURAL JOIN meio
+  ) as meiosCombate
+  EXCEPT (SELECT nummeio, nomeentidade FROM meioCombate NATURAL JOIN meio NATURAL JOIN acciona)
 
--- Query 6
   -- Liste as entidades que forneceram meios de combate a todos os Processos de
   -- socorro que acionaram meios;
 
