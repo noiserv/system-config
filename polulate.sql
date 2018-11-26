@@ -72,6 +72,9 @@ INSERT INTO audita VALUES ('0','0','primeiro','1','2018-12-20 10:00:00', '2018-1
 
 INSERT INTO solicita VALUES ('0','2018-11-18 10:00:00','0','2018-11-21 10:00:00','2018-11-22 10:00:00');
 
-															
 
+-- EDGE CASES
 
+-- Edge case for query 5
+INSERT INTO meio VALUES ('666','useless','quarto');
+INSERT INTO meioCombate VALUES ('666','quarto')
