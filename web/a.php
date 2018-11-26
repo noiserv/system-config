@@ -68,7 +68,7 @@
         $prep->execute();
       } elseif ($type == "eventoEmergencia" or $type == "processoSocorro") {
         $prep = $db->prepare("DELETE FROM processoSocorro WHERE numProcessoSocorro = :numprocesso;");
-        $prep->bindParam(':numprocesso', $_REQUEST['id2']);
+        $prep->bindParam(':numprocesso', $_REQUEST['id']);
         $prep->execute();
       }elseif ($type == "meio" or $type == "entidade") {
         $prep = $db->prepare("DELETE FROM entidadeMeio WHERE nomeEntidade = :nomeentidade;");
@@ -100,21 +100,21 @@
     echo("<br><br><br><br><br><br>");
     echo("<h1 align=\"CENTER\"><strong>Eventos de Emerg&ecirc;ncia</h1>\n");
     echo("<table border=\"2\" align=\"CENTER\">\n");
-    echo("<tr><td><b><strong>Moradas:</b></td><td><b><strong>N&uacute;mero de Processo:</b></td><td><b><strong>Nome da Pessoa:</b></td><td><b><strong>N&uacute;mero de Telefone:</b></td><td><b><strong>Instante Chamada:</b></td><td></td></tr>\n");
+    echo("<tr><td><b><strong>N&uacute;mero de Processo:</b></td><td><b><strong>Moradas:</b></td><td><b><strong>Nome da Pessoa:</b></td><td><b><strong>N&uacute;mero de Telefone:</b></td><td><b><strong>Instante Chamada:</b></td><td></td></tr>\n");
 
     foreach($result as $row)
     {
         echo("<tr><td align=\"CENTER\">");
-        echo($row['moradalocal']);
-        echo("</td><td>");
         echo($row['numprocessosocorro']);
+        echo("</td><td>");
+        echo($row['moradalocal']);
         echo("</td><td>");
         echo($row['nomepessoa']);
         echo("</td><td>");
         echo($row['numtelefone']);
         echo("</td><td>");
         echo($row['instantechamada']);
-        echo("</td><td><a href=\"a.php?mode=delete&type=eventoEmergencia&id={$row['moradalocal']}&id2={$row['numprocessosocorro']}&id3={$row['nomepessoa']}&id4={$row['numtelefone']}&id5={$row['instantechamada']}\">delete</a></td></tr>\n");
+        echo("</td><td><a href=\"a.php?mode=delete&type=eventoEmergencia&id={$row['numprocessosocorro']}&id2={$row['moradalocal']}&id3={$row['nomepessoa']}&id4={$row['numtelefone']}&id5={$row['instantechamada']}\">delete</a></td></tr>\n");
     }
     echo("</table>\n");
 
@@ -143,7 +143,7 @@
     echo("<br><br><br><br><br><br>");
     echo("<h1 align=\"CENTER\"><strong>Meios</h1>\n");
     echo("<table border=\"2\" align=\"CENTER\">\n");
-    echo("<tr><td align=\"CENTER\"><b><strong>N&uacute;mero dos Meios:</b></td><td align=\"CENTER\"><b><strong>Nome dos Meios:</b></td><td align=\"CENTER\"><b><strong>Nome das Entidades:</b></td><td></td></tr>\n");
+    echo("<tr><td align=\"CENTER\"><b><strong>N&uacute;mero dos Meios:</b></td><td align=\"CENTER\"><b><strong>Nome dos Meios:</b></td><td align=\"CENTER\"><b><strong>Nome das entidades:</b></td><td></td></tr>\n");
 
     foreach($result as $row)
     {
@@ -153,7 +153,7 @@
         echo($row['nomemeio']);
         echo("</td><td align=\"CENTER\">");
         echo($row['nomeentidade']);
-        echo("</td><td><a href=\"a.php?mode=delete&type=eventoEmergencia&id={$row['nummeio']}&id2={$row['nomemeio']}&id3={$row['nomeentidade']}\">delete</a></td></tr>\n");
+        echo("</td><td><a href=\"a.php?mode=delete&type=meio&id3={$row['nummeio']}&id2={$row['nomemeio']}&id={$row['nomeentidade']}\">delete</a></td></tr>\n");
     }
     echo("</table>\n");
 
