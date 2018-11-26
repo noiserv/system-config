@@ -18,7 +18,7 @@ DROP TABLE IF EXISTS audita cascade;
 DROP TABLE IF EXISTS solicita cascade;
 
 CREATE TABLE camara (
-    camNum NUMERIC(255) unique,
+    camNum NUMERIC(255) NOT NULL  unique,
     PRIMARY KEY(camNum)
 );
 
@@ -34,8 +34,8 @@ CREATE TABLE video (
 
 
 CREATE TABLE segmentoVideo (
-  camNum NUMERIC(255) unique,
-  segmentNum NUMERIC(255) unique,
+  camNum NUMERIC(255) NOT NULL unique,
+  segmentNum NUMERIC(255) NOT NULL unique,
   dataHoraInicio TIMESTAMP NOT NULL unique,
   duracao TIME NOT NULL,
   -- duration FIXME, -- defnir o formato
@@ -50,14 +50,14 @@ CREATE TABLE zona (
 
 CREATE TABLE vigia (
   moradaLocal VARCHAR(255) NOT NULL, --tem de ser UNIQUE??
-  camNum NUMERIC(255) ,
+  camNum NUMERIC(255) NOT NULL ,
   PRIMARY KEY(moradaLocal,camNum),
   -- a camNUm e uma FUNCTION?
   FOREIGN KEY(moradaLocal) REFERENCES zona(moradaLocal)  ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE processoSocorro (
-    numProcessoSocorro NUMERIC(255) unique,
+    numProcessoSocorro NUMERIC(255)  NOT NULL unique,
     PRIMARY KEY(numProcessoSocorro)
 );
 
@@ -65,8 +65,8 @@ CREATE TABLE eventoEmergencia (
   nomePessoa VARCHAR(255) NOT NULL,
   moradaLocal VARCHAR(255) NOT NULL,
   numProcessoSocorro NUMERIC(255) , --e um varchar ou inteiro?
-  numTelefone NUMERIC(255) unique, --NAO TEM DE TER 9 DIGITIOS? OU NAO? TIPO +351967776543?
-  instanteChamada TIMESTAMP unique,
+  numTelefone NUMERIC(255) NOT NULL unique, --NAO TEM DE TER 9 DIGITIOS? OU NAO? TIPO +351967776543?
+  instanteChamada TIMESTAMP NOT NULL unique,
   -- duration FIXME, -- defnir o formato
   PRIMARY KEY(numTelefone, nomePessoa),
   FOREIGN KEY(moradaLocal) REFERENCES zona(moradaLocal) ON DELETE CASCADE ON UPDATE CASCADE,
@@ -74,7 +74,7 @@ CREATE TABLE eventoEmergencia (
 );
 
 CREATE TABLE entidadeMeio (
-    nomeEntidade VARCHAR(255) unique,
+    nomeEntidade VARCHAR(255)  NOT NULL unique,
     PRIMARY KEY(nomeEntidade)
 );
 
@@ -111,7 +111,7 @@ CREATE TABLE meioSocorro(
 CREATE TABLE transporta(
   numMeio NUMERIC(255) NOT NULL,
   nomeEntidade VARCHAR(255) NOT NULL,
-  numProcessoSocorro NUMERIC(255) ,
+  numProcessoSocorro NUMERIC(255) NOT NULL ,
   numVitimas NUMERIC(255) NOT NULL,
   PRIMARY KEY(numMeio, nomeEntidade,numProcessoSocorro),
   FOREIGN KEY(numProcessoSocorro) REFERENCES processoSocorro(numProcessoSocorro) ON DELETE CASCADE ON UPDATE CASCADE,
@@ -121,7 +121,7 @@ CREATE TABLE transporta(
 CREATE TABLE alocado(
   numMeio NUMERIC(255) NOT NULL,
   nomeEntidade VARCHAR(255) NOT NULL,
-  numProcessoSocorro NUMERIC(255) ,
+  numProcessoSocorro NUMERIC(255) NOT NULL ,
   numHoras NUMERIC(255) NOT NULL,
   PRIMARY KEY(numMeio, nomeEntidade,numProcessoSocorro),
   FOREIGN KEY(numProcessoSocorro) REFERENCES processoSocorro(numProcessoSocorro) ON DELETE CASCADE ON UPDATE CASCADE,
