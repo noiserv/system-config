@@ -82,12 +82,12 @@
     $result = $prep->fetchAll();
 
     echo("<br><br>");
-    echo("<h1 align=\"CENTER\"><strong>Zonas</h1>\n");
-    echo("<table border=\"2\" align=\"CENTER\">\n");
-    echo("<tr><td><b><strong>Moradas:</b></td><td></td></tr>\n");
+    echo("<h1 align='center'><strong>Zonas</h1>");
+    echo("<table border=\"2\" align='center'>");
+    echo("<tr><td><b><strong>Moradas:</b></td><td></td></tr>");
 
     foreach($result as $row) {
-      echo("<tr><td align=\"CENTER\">");
+      echo("<tr><td align='center'>");
       echo($row['moradalocal']);
       echo("</td><td><a href=\"a.php?mode=delete&type=zona&id={$row['moradalocal']}\">delete</a></td></tr>\n");
     }
@@ -98,42 +98,42 @@
     $result = $prep->fetchAll();
 
     echo("<br><br><br><br><br><br>");
-    echo("<h1 align=\"CENTER\"><strong>Eventos de Emerg&ecirc;ncia</h1>\n");
-    echo("<table border=\"2\" align=\"CENTER\">\n");
+    echo("<h1 align='center'><strong>Eventos de Emerg&ecirc;ncia</h1>");
+    echo("<table border=\"2\" align='center'>");
     echo("<tr><td><b><strong>N&uacute;mero de Processo:</b></td><td><b><strong>Moradas:</b></td><td><b><strong>Nome da Pessoa:</b></td><td><b><strong>N&uacute;mero de Telefone:</b></td><td><b><strong>Instante Chamada:</b></td><td></td></tr>\n");
 
     foreach($result as $row)
     {
-        echo("<tr><td align=\"CENTER\">");
+        echo("<tr><td align='center'>");
         echo($row['numprocessosocorro']);
-        echo("</td><td>");
+        echo("</td><td align='center'>");
         echo($row['moradalocal']);
-        echo("</td><td>");
+        echo("</td><td align='center'>");
         echo($row['nomepessoa']);
-        echo("</td><td>");
+        echo("</td><td align='center'>");
         echo($row['numtelefone']);
-        echo("</td><td>");
+        echo("</td><td align='center'>");
         echo($row['instantechamada']);
         echo("</td><td><a href=\"a.php?mode=delete&type=eventoEmergencia&id={$row['numprocessosocorro']}&id2={$row['moradalocal']}&id3={$row['nomepessoa']}&id4={$row['numtelefone']}&id5={$row['instantechamada']}\">delete</a></td></tr>\n");
     }
-    echo("</table>\n");
+    echo("</table>");
 
     $prep = $db->prepare("SELECT numProcessoSocorro FROM processoSocorro;");
     $prep->execute();
     $result = $prep->fetchAll();
 
     echo("<br><br>");
-    echo("<h1 align=\"CENTER\"><strong>Processos de Socorro</h1>\n");
-    echo("<table border=\"2\" align=\"CENTER\">\n");
-    echo("<tr><td><b><strong>Números:</b></td><td></td></tr>\n");
+    echo("<h1 align='center'><strong>Processos de Socorro</h1>");
+    echo("<table border=\"2\" align='center'>");
+    echo("<tr><td><b><strong>Números:</b></td><td></td></tr>");
 
     foreach($result as $row)
     {
-      echo("<tr><td align=\"CENTER\">");
+      echo("<tr><td align='center'>");
       echo($row['numprocessosocorro']);
       echo("</td><td><a href=\"a.php?mode=delete&type=processoSocorro&id={$row['numprocessosocorro']}\">delete</a></td></tr>\n");
     }
-    echo("</table>\n");
+    echo("</table>");
 
     
     $prep = $db->prepare("SELECT numMeio, nomeMeio, nomeEntidade FROM meio;");
@@ -141,37 +141,37 @@
     $result = $prep->fetchAll();
 
     echo("<br><br><br><br><br><br>");
-    echo("<h1 align=\"CENTER\"><strong>Meios</h1>\n");
-    echo("<table border=\"2\" align=\"CENTER\">\n");
-    echo("<tr><td align=\"CENTER\"><b><strong>N&uacute;mero dos Meios:</b></td><td align=\"CENTER\"><b><strong>Nome dos Meios:</b></td><td align=\"CENTER\"><b><strong>Nome das entidades:</b></td><td></td></tr>\n");
+    echo("<h1 align='center'><strong>Meios</h1>");
+    echo("<table border=\"2\" align='center'>");
+    echo("<tr><td align='center'><b><strong>N&uacute;mero dos Meios:</b></td><td align='center'><b><strong>Nome dos Meios:</b></td><td align='center'><b><strong>Nome das entidades:</b></td><td></td></tr>");
 
     foreach($result as $row)
     {
-        echo("<tr><td align=\"CENTER\">");
+        echo("<tr><td align='center'>");
         echo($row['nummeio']);
-        echo("</td><td align=\"CENTER\">");
+        echo("</td><td align='center'>");
         echo($row['nomemeio']);
-        echo("</td><td align=\"CENTER\">");
+        echo("</td><td align='center'>");
         echo($row['nomeentidade']);
         echo("</td><td><a href=\"a.php?mode=delete&type=meio&id3={$row['nummeio']}&id2={$row['nomemeio']}&id={$row['nomeentidade']}\">delete</a></td></tr>\n");
     }
-    echo("</table>\n");
+    echo("</table>");
 
     $prep = $db->prepare("SELECT nomeEntidade FROM entidadeMeio;");
     $prep->execute();
     $result = $prep->fetchAll();
 
     echo("<br><br>");
-    echo("<h1 align=\"CENTER\"><strong>Entidades</h1>\n");
-    echo("<table border=\"2\" align=\"CENTER\">\n");
-    echo("<tr><td><b><strong>Nomes:</b></td><td></td></tr>\n");
+    echo("<h1 align='center'><strong>Entidades</h1>");
+    echo("<table border=\"2\" align='center'>");
+    echo("<tr><td><b><strong>Nomes:</b></td><td></td></tr>");
 
     foreach($result as $row) {
-      echo("<tr><td align=\"CENTER\">");
+      echo("<tr><td align='center'>");
       echo($row['nomeentidade']);
       echo("</td><td><a href=\"a.php?mode=delete&type=entidade&id={$row['nomeentidade']}\">delete</a></td></tr>\n");
     }
-    echo("</table>\n");
+    echo("</table>");
 
     $result = null;
     $db = null;
