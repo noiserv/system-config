@@ -62,8 +62,12 @@ SELECT nummeio, nomeentidade FROM (
 -- Query 6
   --Liste as entidades que forneceram meios de combate a todos os Processos de socorro que acionaram meios;
   --Vi pelos slides mas ainda nao esta correto 
-  SELECT DISTINCT nomeEntidade FROM acciona a
-WHERE  NOT EXISTS (
- SELECT nomeEntidade FROM meioCombate
+
+SELECT nomeEntidade FROM (acciona NATURAL JOIN meioCombate)
+	WHERE numProcessoSocorro IN(
+ 	SELECT numProcessoSocorro FROM acciona
+		WHERE nomeEntidade NOT IN (
+		SELECT nomeEntidade FROM meioCombate)) ;
+	/*
 EXCEPT
-SELECT nomeEntidade FROM (acciona NATURAL JOIN meioCombate) ma WHERE ma.numProcessoSocorro=a.numProcessoSocorro);
+SELECT nomeEntidade FROM (acciona NATURAL JOIN meioCombate) ma WHERE ma.numProcessoSocorro=a.numProcessoSocorro);*/

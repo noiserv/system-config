@@ -1,4 +1,4 @@
-﻿-- Camaras de Vigilancia
+-- Camaras de Vigilancia
 INSERT INTO camara VALUES ('0');
 INSERT INTO camara VALUES ('1');
 INSERT INTO camara VALUES ('2');
@@ -37,10 +37,12 @@ INSERT INTO vigia VALUES ('Rua Joao Chagas 12,Lisboa','1');
 INSERT INTO processoSocorro VALUES ('0');
 INSERT INTO processoSocorro VALUES ('1');
 
+
+
 INSERT INTO eventoEmergencia VALUES ('MARIA DUARTE','Rua Joao Chagas 12,Lisboa','0','926678868','2018-11-18 10:00:00');
-INSERT INTO eventoEmergencia VALUES ('PEDRO','Rua das Caracoletas, Lisboa',NULL,'926679868','2018-10-19 10:00:00');
-INSERT INTO eventoEmergencia VALUES ('Soraia','Rua Joao CShagas 12, Lisboa',NULL,'926670868','2018-12-18 10:00:00');
-INSERT INTO eventoEmergencia VALUES ('Nika','Rua das Nikolettas 1Dto, Lisboa',NULL,'921552918','2018-11-18 20:00:00');
+--INSERT INTO eventoEmergencia VALUES ('PEDRO','Rua das Caracoletas, Lisboa',NULL,'926679868','2018-10-19 10:00:00');
+--INSERT INTO eventoEmergencia VALUES ('Soraia','Rua Joao CShagas 12, Lisboa',NULL,'926670868','2018-12-18 10:00:00');
+--INSERT INTO eventoEmergencia VALUES ('Nika','Rua das Nikolettas 1Dto, Lisboa',NULL,'921552918','2018-11-18 20:00:00');
 
 INSERT INTO entidadeMeio VALUES ('primeiro');
 INSERT INTO entidadeMeio VALUES ('segundo');
@@ -53,18 +55,25 @@ INSERT INTO meio VALUES ('1','blue','segundo');
 INSERT INTO meio VALUES ('2','geen','terceiro');
 INSERT INTO meio VALUES ('3','black','quarto');
 
-INSERT INTO meioCombate VALUES ('3','quarto');
+
+
 INSERT INTO meioCombate VALUES ('0','primeiro');
+
 INSERT INTO meioApoio VALUES ('2','terceiro');
+
 INSERT INTO meioSocorro VALUES ('1','segundo');
 
 INSERT INTO transporta VALUES ('1','segundo','0','7');
 
 INSERT INTO alocado VALUES ('2','terceiro','1','12');
 
+
 INSERT INTO acciona VALUES ('0','primeiro','1');
 INSERT INTO acciona VALUES ('2','terceiro','1');
 INSERT INTO acciona VALUES ('1','segundo','0');
+
+
+
 
 
 INSERT INTO coordenador VALUES ('0');
@@ -79,4 +88,11 @@ INSERT INTO solicita VALUES ('0','2018-11-18 10:00:00','0','2018-11-21 10:00:00'
 
 -- Edge case for query 5
 INSERT INTO meio VALUES ('666','useless','quarto');
-INSERT INTO meioCombate VALUES ('666','quarto')
+INSERT INTO meioCombate VALUES ('666','quarto');
+-- For query 6
+INSERT INTO processoSocorro VALUES ('2');
+INSERT INTO acciona VALUES ('666','quarto','2');
+INSERT INTO meio VALUES ('55','now','seis');
+INSERT INTO acciona VALUES ('55','seis','2');
+
+
