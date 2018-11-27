@@ -39,6 +39,7 @@
       }
     }
     $db = null;
+
   } catch (PDOException $e) {
     echo("<p>ERROR: {$e->getMessage()}</p>");
   }
@@ -52,7 +53,7 @@
     <p><input type='hidden' name='type' value='morada'/></p>
     <p>morada: <input type='text' name='morada'/></p>
     <button type='get' value='get'>Submit</button>
-    <a href="index.html"><button type='buttom'>Voltar</button></a>
+    <a href="http://web.tecnico.ulisboa.pt/ist186474/testing/"><button type='buttom'>Voltar</button></a>
 
     </form>
   </div>

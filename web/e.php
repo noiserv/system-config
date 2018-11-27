@@ -51,7 +51,7 @@
       <p><input type='hidden' name='type' value='numprocesso'/></p>
       <p>numProcesso: <input type='text' name='numProcc'/></p>
       <button type='find' value='find'>Submit</button>
-      <a href="index.html"><buttom type='buttom'>Voltar</buttom></a>
+      <a href="http://web.tecnico.ulisboa.pt/ist186474/testing/index.html"><buttom type='buttom'>Voltar</buttom></a>
     </form>
   </div>
   </body>
