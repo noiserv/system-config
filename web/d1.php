@@ -13,28 +13,30 @@
     $mode = isset($_REQUEST['mode']) ? $_REQUEST['mode'] : '';
 
     if ($mode == "add") {
-      echo($_REQUEST['numProcessoSocorro']);
+      /*echo($_REQUEST['numProcessoSocorro']);
       echo($_REQUEST['nomeEntidade']);
-      echo($_REQUEST['numMeio']);
+      echo($_REQUEST['numMeio']);*/
       $result = $db->prepare("INSERT INTO acciona VALUES(:numMeio, :nomeEntidade, :numProcessoSocorro);");
       $result->bindParam(':numProcessoSocorro', $_REQUEST['numProcessoSocorro']);
       $result->bindParam(':nomeEntidade', $_REQUEST['nomeEntidade']);
       $result->bindParam(':numMeio', $_REQUEST['numMeio']);
       $result->execute();
-    }
+    }?>
 
 
-
+  <?php
     // associacoes atuais entre meios e processos de socorro
     $sql = "SELECT numMeio,nomeEntidade,numProcessoSocorro FROM acciona;";
     $result = $db->prepare($sql);
     $result->execute();
-    echo("<br><br><br>");
-    echo("<h1 align='center'><strong>Associacoes atuais</h1>\n");
-    echo("<p align='center'><strong>Processos de Socorro <-> Meios</p>\n");
-    echo("<table border=\"1\" align='center'>\n");
-    echo("<tr><td><strong>N&uacutemero dos Meios:</td><td><strong>Nome das Entidades:</td><td><strong>N&uacutemero dos Processos:</td></tr>\n");
+  ?>
+    <br><br><br>
+    <h1 align='center'><strong>Associacoes atuais</h1>
+    <p align='center'><strong>Processos de Socorro <-> Meios</p>
+    <table border=\"1\" align='center'>
+    <tr><td><strong>N&uacutemero dos Meios:</td><td><strong>Nome das Entidades:</td><td><strong>N&uacutemero dos Processos:</td></tr>
 
+  <?php
     foreach($result as $row)
     {
       echo("<tr><td align='center'>");
@@ -43,41 +45,44 @@
       echo($row['nomeentidade']);
       echo("</td><td align='center'>");
       echo($row['numprocessosocorro']);
-      echo("</td></tr>\n");
+      echo("</td></tr>");
     }
+  ?>
+    </table>
+    <br><br>
 
-    echo("</table>\n");
-
-    echo("<br><br>");
-
+  <?php
     // processos de socorro
     $sql = "SELECT numProcessoSocorro FROM processoSocorro;";
     $result = $db->prepare($sql);
     $result->execute();
+  ?>
 
-    echo("<h1 align='center'><strong>Processos de Socorro</h1>");
-    echo("<table border='1' align='center'>");
-    echo("<tr><td><strong>Número dos Processos de Socorro:</td></tr>");
+    <h1 align='center'><strong>Processos de Socorro</h1>
+    <table border='1' align='center'>
+    <tr><td><strong>Número dos Processos de Socorro:</td></tr>
 
+  <?php
     foreach($result as $row)
     {
         echo("<tr><td align='center'>");
         echo($row['numprocessosocorro']);
         echo("</td></tr>");
     }
-
     echo("</table>");
 
     // meios disponíveis
     $sql = "SELECT numMeio, nomeMeio, nomeEntidade FROM meio;";
     $result = $db->prepare($sql);
     $result->execute();
+  ?>
 
-    echo("<br><br><br>");
-    echo("<h1 align='center'><strong>Meios</h1>");
-    echo("<table border='1' align='center'>");
-    echo("<tr><td><strong>Numero dos Meios:</td><td><strong>Nome dos Meios:</td><td><strong>Nome das Entidades:</td></tr>");
+    <br><br><br>
+    <h1 align='center'><strong>Meios</h1>
+    <table border='1' align='center'>
+    <tr><td><strong>Numero dos Meios:</td><td><strong>Nome dos Meios:</td><td><strong>Nome das Entidades:</td></tr>
 
+  <?php
     foreach($result as $row)
     {
         echo("<tr><td align=\"center\">");
@@ -86,42 +91,52 @@
         echo($row['nomemeio']);
         echo("</td><td align=\"center\">");
         echo($row['nomeentidade']);
-        echo("</td></tr>\n");
+        echo("</td></tr>");
     }
-    echo("</table>\n");
+  ?>
+    </table>
+    <div style='text-align:center'>
+      <br><br>
+      <form action='d1.php' method='post'>
+      <h3>adicionar associacao: meio - processo socorro</h3>
+      <p><input type='hidden' name='mode' value='add'/></p>
 
-    echo("<div style='text-align:center'>");
-    echo("  <br><br>");
-    echo("  <form action='d1.php' method='post'>");
-    echo("  <h3>adicionar associacao: meio - processo socorro</h3>");
-    echo("  <p><input type='hidden' name='mode' value='add'/></p>");
 
-    // drop-down num of processes
-    echo("  <p>numprocesso: <select name='numProcessoSocorro'/></p>");
+    <!-- drop-down num of processes -->
+    <p>numprocesso: <select name='numProcessoSocorro'/></p>");
+
+  <?php
     $sql = "SELECT numProcessoSocorro FROM processoSocorro;";
     $result = $db->prepare($sql);
     $result->execute();
+
     foreach($result as $row) {
       echo("<option value=".$row['numprocessosocorro'].">".$row['numprocessosocorro']."</option>");
     }
-    echo("  </select></p>");
+  ?>
 
-    // nome da entidade
-    echo("  <p>nomeEntidade: <input type='text' name='nomeEntidade'/></p>");
+    </select></p>
 
-    // drop-down num of processes
-    echo("  <p>numMeio: <select name='numMeio'/></p>");
+    <!-- nome da entidade -->
+    <p>nomeEntidade: <input type='text' name='nomeEntidade'/></p>
+
+    <!-- drop-down num of processes-->
+    <p>numMeio: <select name='numMeio'/></p>
+
+  <?php
     $sql = "SELECT numMeio FROM acciona GROUP BY numMeio ORDER BY numMeio";
     $result = $db->prepare($sql);
     $result->execute();
     foreach($result as $row) {
       echo("<option value=".$row['nummeio'].">".$row['nummeio']."</option>");
     }
-    echo("  </select></p>");
+  ?>
+    </select></p>
 
-    echo("  <button class='btn btn-info' type='submit' value='submit'>Submit</button>");
-    echo("  </form>");
+    <button class='btn btn-info' type='submit' value='submit'>Submit</button>
+    </form>
 
+<?php
     $db = null;
 
   } catch (PDOException $e) {

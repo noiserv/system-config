@@ -19,12 +19,14 @@
       if ($type == "morada") {
         $result = $db->prepare("SELECT numMeio,nomeEntidade FROM meioSocorro NATURAL JOIN acciona NATURAL JOIN eventoEmergencia WHERE moradaLocal= :morada;");
         $result->bindParam(':morada', $_REQUEST['moradaLocal']);
-        $result->execute();
-        echo("<br><br><br>");
-        echo("<p align=\"CENTER\"><strong>Meios de Socorro</p>\n");
-        echo("<table border=\"1\" align=\"CENTER\">\n");
-        echo("<tr><td><strong>N&uacute;mero dos Meios:</td><td><strong>Nome das Entidades:</td></tr>\n");
+        $result->execute();?>
 
+        <br><br><br>
+        <p align="CENTER"><strong>Meios de Socorro</p>
+        <table border="1" align="CENTER">
+        <tr><td><strong>N&uacute;mero dos Meios:</td><td><strong>Nome das Entidades:</td></tr>
+
+  <?php
         foreach($result as $row)
         {
           echo("<tr><td align=\"CENTER\">");

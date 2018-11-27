@@ -72,19 +72,21 @@
 
         }
       }
+  ?>
 
-
-
+  <?php
     $prep = $db->prepare("SELECT numMeio,nomeMeio,nomeEntidade FROM meio;");
     $prep->execute();
     $result = $prep->fetchAll();
+  ?>
 
-    echo("<br><br>");
-    echo("<h1 align='center'><strong>Usar os valores da tabela Meios ao criar os novos meios.</h1>");
-    echo("<h2 align='center'><strong>Meios:</h2>");
-    echo("<table border=\"1\" align=\"CENTER\">\n");
-    echo("<tr><td><strong>N&uacute;mero dos Meios:</td><td><strong>Nome dos Meios:</td><td><strong>Nome das Entidades:</td></tr>\n");
+    <br><br>
+    <h1 align='center'><strong>Usar os valores da tabela Meios ao criar os novos meios.</h1>
+    <h2 align='center'><strong>Meios:</h2>
+    <table border="1" align="CENTER">
+    <tr><td><strong>N&uacute;mero dos Meios:</td><td><strong>Nome dos Meios:</td><td><strong>Nome das Entidades:</td></tr>
 
+  <?php
     foreach($result as $row) {
       echo("<tr><td align=\"CENTER\">");
       echo($row['nummeio']);
@@ -92,55 +94,61 @@
       echo($row['nomemeio']);
       echo("</td><td align=\"CENTER\">");
       echo($row['nomeentidade']);
-      echo("</td></tr>\n");
+      echo("</td></tr>");
     }
-    echo("</table>\n");
+  ?>
+    </table>
 
+  <?php
     $prep = $db->prepare("SELECT numMeio,nomeEntidade FROM meioCombate;");
     $prep->execute();
     $result = $prep->fetchAll();
+  ?>
+    <br><br>
+    <h1 align='center'><strong>Meios de Combate</h1>
+    <table border="2" align="CENTER">
+    <tr><td><strong>N&uacute;mero dos Meios:</td><td><strong>Nome das Entidades:</td></tr>
 
-    echo("<br><br>");
-    echo("<h1 align='center'><strong>Meios de Combate</h1>");
-    echo("<table border=\"2\" align=\"CENTER\">\n");
-    echo("<tr><td><strong>N&uacute;mero dos Meios:</td><td><strong>Nome das Entidades:</td></tr>\n");
-
+  <?php
     foreach($result as $row) {
       echo("<tr><td align=\"CENTER\">");
       echo($row['nummeio']);
       echo("</td><td align=\"CENTER\">");
       echo($row['nomeentidade']);
-      echo("</td><td><a href=\"b.php?mode=delete&type=combate&id={$row['nummeio']}&id2={$row['nomeentidade']}\">delete</a></td></tr>\n");
-      echo("</td></tr>\n");
-    }
-    echo("</table>\n");
-    echo("<br><br><br>");
-    echo("<form align='center' action='b.php' method='post'>");
-    echo("<input type='hidden' name='mode' value='add'/>");
-    echo("<input type='hidden' name='type' value='combate'/>");
-    echo("<input type='text' name='nummeio' placeholder='N&uacute;mero do Meio'/><br><br>");
-    echo("<input type='text' name='nomeentidade' placeholder='Nome da Entidade'/><br><br>");
-    echo("<button class='btn btn-info' type='submit' value='submit'>Add</button>");
-    echo("<br><br>");
-    echo("</form>");
-    echo("<form align='center' action='b.php' method='post'>");
-    echo("<input type='hidden' name='mode' value='edit'/>");
-    echo("<input type='hidden' name='type' value='combate'/>");
-    echo("<div><input type='text' name='nummeioa' placeholder='N&uacute;mero do Meio Atual'/><input type='text' name='nummeion' placeholder='Novo N&uacute;mero do Meio'/></div><br><br>");
-    echo("<div><input type='text' name='nomeentidadea' placeholder='Nome da Entidade Atual'/><input type='text' name='nomeentidaden' placeholder='Novo Nome da Entidade'/></div><br><br>");
-    echo("<button class='btn btn-info' type='edit' value='edit'>Edit</button>");
-    echo("</form>");
+      echo("</td><td><a href=\"b.php?mode=delete&type=combate&id={$row['nummeio']}&id2={$row['nomeentidade']}\">delete</a></td></tr>");
+      echo("</td></tr>");
+    } ?>
+
+    </table>
+    <br><br><br>
+    <form align='center' action='b.php' method='post'>
+    <input type='hidden' name='mode' value='add'/>
+    <input type='hidden' name='type' value='combate'/>
+    <input type='text' name='nummeio' placeholder='N&uacute;mero do Meio'/><br><br>
+    <input type='text' name='nomeentidade' placeholder='Nome da Entidade'/><br><br>
+    <button class='btn btn-info' type='submit' value='submit'>Add</button>
+    <br><br>
+    </form>
+    <form align='center' action='b.php' method='post'>
+    <input type='hidden' name='mode' value='edit'/>
+    <input type='hidden' name='type' value='combate'/>
+    <div><input type='text' name='nummeioa' placeholder='N&uacute;mero do Meio Atual'/><input type='text' name='nummeion' placeholder='Novo N&uacute;mero do Meio'/></div><br><br>
+    <div><input type='text' name='nomeentidadea' placeholder='Nome da Entidade Atual'/><input type='text' name='nomeentidaden' placeholder='Novo Nome da Entidade'/></div><br><br>
+    <button class='btn btn-info' type='edit' value='edit'>Edit</button>
+    </form>
 
 
+  <?php
     $prep = $db->prepare("SELECT numMeio,nomeEntidade FROM meioApoio;");
     $prep->execute();
     $result = $prep->fetchAll();
+  ?>
+    <br><br>
+    <h1 align='center'><strong>Meios de Apoio</h1>
+    <table border="2" align="CENTER">
+    <tr><td><strong>N&uacutemero dos Meios:</td><td><strong>Nome das Entidades:</td></tr>
 
-    echo("<br><br>");
-    echo("<h1 align='center'><strong>Meios de Apoio</h1>");
-    echo("<table border=\"2\" align=\"CENTER\">\n");
-    echo("<tr><td><strong>N&uacutemero dos Meios:</td><td><strong>Nome das Entidades:</td></tr>\n");
-
+  <?php
     foreach($result as $row) {
       echo("<tr><td align=\"CENTER\">");
       echo($row['nummeio']);
@@ -148,26 +156,30 @@
       echo($row['nomeentidade']);
       echo("</td><td><a href=\"b.php?mode=delete&type=apoio&id={$row['nummeio']}&id2={$row['nomeentidade']}\">delete</a></td></tr>\n");
       echo("</td></tr>\n");
-    }
-    echo("</table>\n");
-    echo("<br><br><br>");
-    echo("<form align='center' action='b.php' method='post'>");
-    echo("<input type='hidden' name='mode' value='add'/>");
-    echo("<input type='hidden' name='type' value='apoio'/>");
-    echo("<input type='text' name='nummeio' placeholder='N&uacute;mero do Meio'/><br><br>");
-    echo("<input type='text' name='nomeentidade' placeholder='Nome da Entidade'/><br><br>");
-    echo("<button class='btn btn-info' type='submit' value='submit'>Add</button>");
-    echo("</form>");
+    }?>
 
+    </table>
+    <br><br><br>
+    <form align='center' action='b.php' method='post'>
+    <input type='hidden' name='mode' value='add'/>
+    <input type='hidden' name='type' value='apoio'/>
+    <input type='text' name='nummeio' placeholder='N&uacute;mero do Meio'/><br><br>
+    <input type='text' name='nomeentidade' placeholder='Nome da Entidade'/><br><br>
+    <button class='btn btn-info' type='submit' value='submit'>Add</button>
+    </form>
+
+  <?
     $prep = $db->prepare("SELECT  numMeio,nomeEntidade FROM meioSocorro;");
     $prep->execute();
     $result = $prep->fetchAll();
+  ?>
 
-    echo("<br><br>");
-    echo("<h1 align='center'><strong>Meios de Socorro</h1>");
-    echo("<table border=\"2\" align=\"CENTER\">\n");
-    echo("<tr><td><strong>N&uacutemero dos Meios:</td><td><strong>Nome das Entidades:</td></tr>\n");
+    <br><br>
+    <h1 align='center'><strong>Meios de Socorro</h1>
+    <table border=\"2\" align=\"CENTER\">
+    <tr><td><strong>N&uacutemero dos Meios:</td><td><strong>Nome das Entidades:</td></tr>
 
+  <?php
     foreach($result as $row) {
       echo("<tr><td align=\"CENTER\">");
       echo($row['nummeio']);
@@ -176,19 +188,21 @@
       echo("</td><td><a href=\"b.php?mode=delete&type=socorro&id={$row['nummeio']}&id2={$row['nomeentidade']}\">delete</a></td></tr>\n");
       echo("</td></tr>\n");
     }
-    echo("</table>\n");
-    echo("<br><br><br>");
-    echo("<form align='center' action='b.php' method='post'>");
-    echo("<input type='hidden' name='mode' value='add'/>");
-    echo("<input type='hidden' name='type' value='socorro'/>");
-    echo("<input type='text' name='nummeio' placeholder='N&uacute;mero do Meio'/><br><br>");
-    echo("<input type='text' name='nomeentidade' placeholder='Nome da Entidade'/><br><br>");
-    echo("<button class='btn btn-info' type='submit' value='submit'>Add</button>");
-    echo("</form>");
-    echo("<br><br>");
+  ?>
+    </table>
+    <br><br><br>
+    <form align='center' action='b.php' method='post'>
+    <input type='hidden' name='mode' value='add'/>
+    <input type='hidden' name='type' value='socorro'/>
+    <input type='text' name='nummeio' placeholder='N&uacute;mero do Meio'/><br><br>
+    <input type='text' name='nomeentidade' placeholder='Nome da Entidade'/><br><br>
+    <button class='btn btn-info' type='submit' value='submit'>Add</button>
+    </form>
+    <br><br>
 
-    echo("<a href='http://web.tecnico.ulisboa.pt/ist186474/testing/index.html'><div style='text-align:center'><button  class='btn btn-info' type='submit' value='Again'>Voltar</button></div></a>");
+    <a href='http://web.tecnico.ulisboa.pt/ist186474/testing/index.html'><div style='text-align:center'><button  class='btn btn-info' type='submit' value='Again'>Voltar</button></div></a>
 
+<?php
     $result = null;
     $db = null;
 
@@ -199,10 +213,6 @@
 ?>
       <div style="text-align:center">
         <br><br>
-
-
-
-
       </div>
   </body>
 </html>
