@@ -71,27 +71,7 @@
       }
       echo("</td></tr>\n");
     }
-
     echo("</table>\n");
-
-    echo("<br><br>");
-
-    // processos de socorro
-    $sql = "SELECT numProcessoSocorro FROM processoSocorro;";
-    $result = $db->prepare($sql);
-    $result->execute();
-
-    echo("<h1 align='center'><strong>Processos de Socorro</h1>");
-    echo("<table border='1' align='center'>");
-    echo("<tr><td><strong>Número dos Processos de Socorro:</td></tr>");
-
-    foreach($result as $row)
-    {
-        echo("<tr><td align='center'>");
-        echo($row['numprocessosocorro']);
-        echo("</td></tr>");
-    }
-    echo("</table>");
 
     $db = null;
 
