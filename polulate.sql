@@ -63,7 +63,9 @@ INSERT INTO transporta VALUES ('1','segundo','0','7');
 INSERT INTO alocado VALUES ('2','terceiro','1','12');
 
 INSERT INTO acciona VALUES ('0','primeiro','1');
+INSERT INTO acciona VALUES ('2','terceiro','1');
 INSERT INTO acciona VALUES ('1','segundo','0');
+
 
 INSERT INTO coordenador VALUES ('0');
 INSERT INTO coordenador VALUES ('1');
