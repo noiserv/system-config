@@ -1,6 +1,16 @@
 -- Query 1
   -- Qual e o processo de socorro que envolveu maior número de meios distintos;
 
+  SELECT e.numProcessoSocorro FROM(
+    SELECT * FROM (
+        (SELECT Max(a.total) AS total FROM
+  	 	     (SELECT numProcessoSocorro,COUNT(*) AS total FROM acciona GROUP BY numProcessoSocorro )a --tabela a= num processo e o numero de meios distintos que o processo correspondente acionou
+        )b --tabela b= maximo valor de meios distitntos de um processo
+    NATURAL JOIN
+        (SELECT numProcessoSocorro,COUNT(*) AS total FROM acciona GROUP BY numProcessoSocorro)c--tabela c==a-- nao consegui ir buscar a a
+    )d--tabela d= contem o valor max e o processo correspondente
+  )e;--tabela e=contem o numero do processo com mais meios distintos
+
   -- PARECIDO A PERGUNTA 3 DO ENUNCIADO PASSADO
 
 
@@ -48,3 +58,12 @@ SELECT nummeio, nomeentidade FROM (
   -- socorro que acionaram meios;
 
   -- PARECIDO A PERGUNTA 8 DO ENUNCIADO PASSADO
+
+-- Query 6
+  --Liste as entidades que forneceram meios de combate a todos os Processos de socorro que acionaram meios;
+  --Vi pelos slides mas ainda nao esta correto 
+  SELECT DISTINCT nomeEntidade FROM acciona a
+WHERE  NOT EXISTS (
+ SELECT nomeEntidade FROM meioCombate
+EXCEPT
+SELECT nomeEntidade FROM (acciona NATURAL JOIN meioCombate) ma WHERE ma.numProcessoSocorro=a.numProcessoSocorro);
