@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # with open("populate.sql","w") as f:
-import random
+import random, datetime
 """ it can either accept
         - function  -- random() for example\n
         - file      -- containing an entry per line
@@ -8,45 +8,68 @@ import random
 #def populate_sql():
 
 def populate_camara():
-    i=0
-    while i<100:
-        print("INSERT INTO camara VALUES " + "('" + str(i) + "');")
-        i+=1
+    for i in range(0,100):
+        print("INSERT INTO camara VALUES ('%d') " % (i))
 
 def populate_video():
-    i=0
-    j=10
-    w = 18
-    print("\n")
-    while i<100:
-        if j<24:
-            print("INSERT INTO video VALUES " + "('" + str(i) + "', '2018-11-" + str(w) + " " + str(j) + ":00:00', '2018-11-" + str(w) + " " + str(j) + ":59:59');")
-        else:
-            w+=1
-            j=10
-            print("INSERT INTO video VALUES " + "('" + str(i) + "', '2018-11-" + str(w) + " " + str(j) + ":00:00', '2018-11-" + str(w) + " " + str(j) + ":59:59');")
-        i+=1
-        j+=1
+    """ videos de hora em hora para 5 camaras"""
+    # em monchique agosto 2018-08-12 10:00:00 -> 2018-08-13 15:59:59
+    populate_video_aux(45, datetime.datetime(2018, 8, 12, 10,0,0), 30)
+
+    # Largo do Carmo, agosto 2018-08-12 10:00:00 ->
+    populate_video_aux(5, datetime.datetime(2018, 8, 12, 10,0,0), 10)
+
+    # Campo Pequeno, agosto 2018-08-12 09:00:00 ->
+    populate_video_aux(19, datetime.datetime(2018, 8, 12, 9,0,0), 10)
+
+    # Campo dos Martires da Patria, agosto 2018-08-11 09:00:00 ->
+    populate_video_aux(43, datetime.datetime(2018, 8, 11, 9,0,0), 30)
+
+    # Campo Grande, agosto 2018-08-11 09:00:00 ->
+    populate_video_aux(94, datetime.datetime(2018, 8, 11, 9,0,0), 50)
+
+
+def populate_video_aux(cam_num, begin_time, n):
+    """ generates n hourly videos for the specified time """
+    date  = begin_time
+    hour  = datetime.timedelta(hours=1)
+    end   = datetime.timedelta(minutes=59, seconds=59)
+    for i in range(0,n):
+        print("INSERT INTO video VALUES ('%d','%s','%s')" % (cam_num, date, date+end))
+        date += hour
+
 
 def populate_segmentoVideo():
-    """ we have video segements from 2018-11-18 10:00:10
-                               until 2018-11-18 11:00:60 """
-    i=0
-    j=10
-    w = 18
-    s= 10
-    print("\n")
-    while i<100/6:
-        if j<24:
-            print("INSERT INTO segmentoVideo VALUES " + "('" + str(i) + "', '" + str(i) + "', '2018-11-" + str(w) + " " + str(j) + ":00:" + str(s) + "', '00:00:" + str(s) + "');")
-        else:
-            j=10
-            print("INSERT INTO segmentoVideo VALUES " + "('" + str(i) + "', '" + str(i) + "', '2018-11-" + str(w) + " " + str(j) + ":00:00', '00:00:50');")
-        if s>=60:
-          j+=1
-          i+=1
-          s=0
-        s+=10
+    """ we have video segements """
+
+    # monchique 45 30 segmentos
+    begin_time = datetime.datetime(2018, 8, 12, 10,0,0)
+    end_time   = datetime.datetime(2018, 8, 12, 11,0,0)
+    split_into_segments(12, 60, begin_time, end_time)
+
+    # largo carmo 5 40 segmentos
+    begin_time = datetime.datetime(2018, 8, 12, 10,0,0)
+    end_time   = datetime.datetime(2018, 8, 12, 10,30,0)
+    split_into_segments(5, 30, begin_time, end_time)
+
+def split_into_segments(cam_num, n, begin_time, end_time):
+    """ we split a video into n segments from a given time till a given end time, the segments have a variable length """
+
+    # average time of each segment
+    delta = (end_time - begin_time) / n
+    print("delta. %s" % (delta))
+    cumulative_time = begin_time
+
+    while cumulative_time < end_time:
+        # segment time = delta +- 20s
+        duration = delta + datetime.timedelta(seconds=int (random.uniform(-20,20)))
+        print("INSERT INTO segmentoVideo VALUES ('%s','%s','%s', '%s')" %  (cam_num,str(cumulative_time),str(cumulative_time+ duration), duration))
+
+        cumulative_time += duration
+
+
+
+
 
 
 def populate_zona():
@@ -171,6 +194,8 @@ nomesMeios   = readFile("nomes-estranhos.txt")
 entidades    = readFile("entidades.txt")
 
 """ populate """
+populate_segmentoVideo()
+print("")
 populate_camara()
 print("")
 populate_video()
@@ -194,3 +219,4 @@ print("")
 populate_alocado()
 print("")
 populate_coordenador()
+"""

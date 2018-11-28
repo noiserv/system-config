@@ -42,10 +42,10 @@ Avenida dos Estados Unidos da América, Frente 44 A
 Avenida Barbosa du Bocage, Passeio Central frente 3
 Avenida de Roma, Frente 103
 Avenida Dom Rodrigo da Cunha, Junto 8
-Praça dos Restauradores, Junto 22
+Monchique
 Rua Maestro Frederico de Freitas, Junto 1 A
 Praça de Londres, Junto 12 C
-Alameda do Beato, Junto 2
+Alameda do Beato, Monchique
 Rua de Sant'Ana (Santana) à Lapa, Junto Avenida Infante Santo
 Praça Espanha, Terminal Rodoviário
 Avenida de Roma, Junto 3 A
@@ -53,7 +53,7 @@ Avenida Guerra Junqueiro, Junto 2 B
 Campo dos Mártires da Pátria
 Avenida Gomes Pereira, Junto 6
 Avenida Vinte e Quatro de Julho, S/N
-Rua Barata Salgueiro, Junto 3
+Rua Barata Salgueiro, Monchique
 Alameda Dom Afonso Henriques, Junto 2
 Campo dos Mártires da Pátria
 Estrada de Benfica, Junto 662 A
