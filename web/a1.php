@@ -48,21 +48,21 @@
     if ($mode == "delete") {
       if ($type == "zona") {
         $prep = $db->prepare("DELETE FROM zona WHERE moradaLocal = :morada;");
-        $prep->bindParam(':morada', $_REQUEST['id']);
+        $prep->bindParam(':morada', $_REQUEST['morada']);
         $prep->execute();
       } elseif ($type == "eventoEmergencia" or $type == "processoSocorro") {
         $result = $db->prepare("SELECT COUNT(*) AS total FROM eventoEmergencia WHERE numProcessoSocorro = :numprocesso;");
-        $result->bindParam(':numprocesso', $_REQUEST['id']);
+        $result->bindParam(':numprocesso', $_REQUEST['numprocesso']);
         $result->execute();  
         foreach($result as $row){
           if($row['total']<=1 or $type == "processoSocorro"){
             $prep = $db->prepare("DELETE FROM processoSocorro WHERE numProcessoSocorro = :numprocesso;");
-            $prep->bindParam(':numprocesso', $_REQUEST['id']);
+            $prep->bindParam(':numprocesso', $_REQUEST['numprocesso']);
             $prep->execute();
           }
           else{
             $prep = $db->prepare("DELETE FROM eventoEmergencia WHERE numTelefone = :telefone;");
-            $prep->bindParam(':telefone', $_REQUEST['id4']);
+            $prep->bindParam(':telefone', $_REQUEST['telefone']);
             $prep->execute();
           }
       }
@@ -81,7 +81,7 @@
     foreach($result as $row) {
       echo("<tr><td align='center'>");
       echo($row['moradalocal']);
-      echo("</td><td><a href=\"a1.php?mode=delete&type=zona&id={$row['moradalocal']}\">delete</a></td></tr>\n");
+      echo("</td><td><a href=\"a1.php?mode=delete&type=zona&morada={$row['moradalocal']}\">delete</a></td></tr>\n");
     }
     echo("</table><br><br>");
     echo("<form align='center' action='a1.php' method='post'>");
@@ -112,7 +112,7 @@
         echo($row['numtelefone']);
         echo("</td><td align='center'>");
         echo($row['instantechamada']);
-        echo("</td><td><a href=\"a1.php?mode=delete&type=eventoEmergencia&id={$row['numprocessosocorro']}&id2={$row['moradalocal']}&id3={$row['nomepessoa']}&id4={$row['numtelefone']}&id5={$row['instantechamada']}\">delete</a></td></tr>\n");
+        echo("</td><td><a href=\"a1.php?mode=delete&type=eventoEmergencia&numprocesso={$row['numprocessosocorro']}&morada={$row['moradalocal']}&nome={$row['nomepessoa']}&telefone={$row['numtelefone']}&chamada={$row['instantechamada']}\">delete</a></td></tr>\n");
     }
     echo("</table><br><br>");
     echo("<form align='center' action='a1.php' method='post'>");
@@ -140,7 +140,7 @@
     {
       echo("<tr><td align='center'>");
       echo($row['numprocessosocorro']);
-      echo("</td><td><a href=\"a1.php?mode=delete&type=processoSocorro&id={$row['numprocessosocorro']}\">delete</a></td></tr>\n");
+      echo("</td><td><a href=\"a1.php?mode=delete&type=processoSocorro&numprocesso={$row['numprocessosocorro']}\">delete</a></td></tr>\n");
     }
     echo("</table><br><br>");
     echo("<form align='center' action='a1.php' method='post'>");
