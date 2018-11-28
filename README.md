@@ -28,3 +28,9 @@ just a very basic system setup to play around with
 * **schema.sql**
 * queries.sql 1
 * queries.sql 6
+
+
+# PERGUNTAS PARA O STOR
+1. eventos de eventoEmergencia usam moradas e locais que já existem?
+2. Evento de emergencia apaga o processo ou não?
+3. Associações não null, o que é suposto fazer na d2?
