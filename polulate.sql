@@ -92,6 +92,7 @@ INSERT INTO meioCombate VALUES ('666','quarto');
 -- For query 6
 INSERT INTO processoSocorro VALUES ('2');
 INSERT INTO acciona VALUES ('666','quarto','2');
+INSERT INTO entidadeMeio VALUES('seis');
 INSERT INTO meio VALUES ('55','now','seis');
 INSERT INTO acciona VALUES ('55','seis','2');
 
