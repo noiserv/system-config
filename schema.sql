@@ -69,7 +69,7 @@ CREATE TABLE eventoEmergencia (
   instanteChamada TIMESTAMP NOT NULL unique,
   -- duration FIXME, -- defnir o formato
   PRIMARY KEY(numTelefone, nomePessoa),
-  FOREIGN KEY(moradaLocal) REFERENCES zona(moradaLocal) ON DELETE CASCADE ON UPDATE CASCADE,
+  FOREIGN KEY(moradaLocal) REFERENCES zona(moradaLocal),
   FOREIGN KEY(numProcessoSocorro) REFERENCES processoSocorro(numProcessoSocorro)  ON DELETE CASCADE ON UPDATE CASCADE
 );
 

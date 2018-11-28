@@ -19,11 +19,12 @@
         $result = $db->prepare("SELECT numMeio,nomeEntidade FROM acciona WHERE numProcessoSocorro= :num;");
         $result->bindParam(':num', $_REQUEST['numProcc']);
         $result->execute();
-        echo("<br><br><br>");
-        echo("<p align=\"CENTER\"><strong>Meios</p>\n");
-        echo("<table border=\"1\" align=\"CENTER\">\n");
-        echo("<tr><td><strong>N&uacutemero dos Meios:</td><td><strong>Nome das Entidades:</td></tr>\n");
-
+      ?>
+        <br><br><br>
+        <p align="CENTER"><strong>Meios</p>
+        <table border="1" align="CENTER">
+        <tr><td><strong>N&uacutemero dos Meios:</td><td><strong>Nome das Entidades:</td></tr>
+      <?php
         foreach($result as $row)
         {
           echo("<tr><td align=\"CENTER\">");
@@ -34,7 +35,6 @@
         }
 
         echo("</table>\n");
-        $db = null;
       }
     }
 

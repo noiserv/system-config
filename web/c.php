@@ -11,30 +11,33 @@
     $sql = "SELECT numProcessoSocorro FROM processoSocorro;";
     $result = $db->prepare($sql);
     $result->execute();
+  ?>
+    <br><br>
+    <h1 align=\"CENTER\"><strong>Processos de Socorro</h1>\n
+    <table border=\"1\" align=\"CENTER\">\n
+    <tr><td><strong>Número dos Processos de Socorro:</td></tr>\n
 
-    echo("<br><br>");
-    echo("<h1 align=\"CENTER\"><strong>Processos de Socorro</h1>\n");
-    echo("<table border=\"1\" align=\"CENTER\">\n");
-    echo("<tr><td><strong>Número dos Processos de Socorro:</td></tr>\n");
-
+  <?php
     foreach($result as $row)
     {
         echo("<tr><td align=\"CENTER\">");
         echo($row['numprocessosocorro']);
         echo("</td></tr>\n");
     }
+  ?>
 
-    echo("</table>\n");
+    </table>
 
+  <?php
     $sql = "SELECT numMeio, nomeMeio, nomeEntidade FROM meio;";
     $result = $db->prepare($sql);
     $result->execute();
-
-    echo("<br><br><br>");
-    echo("<h1 align=\"CENTER\"><strong>Meios</h1>\n");
-    echo("<table border=\"1\" align=\"CENTER\">\n");
-    echo("<tr><td><strong>Número dos Meios:</td><td><strong>Nome dos Meios:</td><td><strong>Nome das Entidades:</td></tr>\n");
-
+  ?>
+    <br><br><br>
+    <h1 align="CENTER"><strong>Meios</h1>
+    <table border="1" align="CENTER">
+    <tr><td><strong>Número dos Meios:</td><td><strong>Nome dos Meios:</td><td><strong>Nome das Entidades:</td></tr>
+  <?php
     foreach($result as $row)
     {
         echo("<tr><td>");
@@ -47,11 +50,10 @@
     }
     echo("</table>\n");
 
-
     $db = null;
-    }
-    catch (PDOException $e) {
-        echo("<p>ERROR: {$e->getMessage()}</p>");
+    
+    } catch (PDOException $e) {
+      echo("<p>ERROR: {$e->getMessage()}</p>");
     }
 ?>
     </body>

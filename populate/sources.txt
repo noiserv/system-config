@@ -1,0 +1,5 @@
+Source for the names: http://centraldedados.pt/governos-cargos.json
+governantes de Portugal
+
+Moradas: https://services.arcgis.com/1dSrzEWVQn5kHHyK/arcgis/rest/services/POISeguranca/FeatureServer/2/query?where=1%3D1&outFields=*&f=pgeojson
+dados abertos lisboa

@@ -32,12 +32,14 @@
     $sql = "SELECT numTelefone, instanteChamada, numProcessoSocorro FROM eventoEmergencia;";
     $result = $db->prepare($sql);
     $result->execute();
-    echo("<div style='text-align:center'>");
-    echo("<h1 align='center'><strong>Associacoes atuais</h1>");
-    echo("<p align='center'><strong>Processos de Socorro <-> Eventos Emergenicia (pode ser NULL)</p>");
-    echo("<table border='1' align='center'>");
-    echo("<tr><td><strong>N&uacutemero dos Meios</td><td><strong>instante chamada</td><td><strong>N&uacutemero do Processo</td></tr>");
+  ?>
+    <div style='text-align:center'>
+    <h1 align='center'><strong>Associacoes atuais</h1>
+    <p align='center'><strong>Processos de Socorro <-> Eventos Emergenicia (pode ser NULL)</p>
+    <table border='1' align='center'>
+    <tr><td><strong>N&uacutemero dos Meios</td><td><strong>instante chamada</td><td><strong>N&uacutemero do Processo</td></tr>
 
+  <?php
     foreach($result as $row)
     {
       echo("<tr><td align='center'>");
