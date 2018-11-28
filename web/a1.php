@@ -8,21 +8,9 @@
 <?php
   try  {
     include 'config.php';
-    $mode = isset($_REQUEST['mode']) ? $_REQUEST['mode'] : '';
-    $type = isset($_REQUEST['type']) ? $_REQUEST['type'] : '';
-    $id = isset($_REQUEST['id']) ? $_REQUEST['id'] : '';
-    $id2 = isset($_REQUEST['id2']) ? $_REQUEST['id2'] : '';
-    $id3 = isset($_REQUEST['id3']) ? $_REQUEST['id3'] : '';
-    $id4 = isset($_REQUEST['id4']) ? $_REQUEST['id4'] : '';
-    $id5 = isset($_REQUEST['id5']) ? $_REQUEST['id5'] : '';
-
     /* ADICIONA*/
     if ($mode == "add") {
-      if ($type == "zona") {
-        $result = $db->prepare("INSERT INTO zona VALUES(:moradaLocal);");
-        $result->bindParam(':moradaLocal', $_REQUEST['morada']);
-        $result->execute();
-      } elseif ($type == "eventoEmergencia") { 
+      if($type == "zona" or $type == "eventoEmergencia"){
         $result = $db->prepare("SELECT COUNT(*) AS total FROM zona WHERE moradaLocal = :morada;");
         $result->bindParam(':morada', $_REQUEST['morada']);
         $result->execute();  
@@ -33,6 +21,8 @@
             $result->execute();
           }
         }
+      }
+      if($type == "processoSocorro" or $type == "eventoEmergencia"){
         $result = $db->prepare("SELECT COUNT(*) AS total FROM processoSocorro WHERE numProcessoSocorro = :numprocesso;");
         $result->bindParam(':numprocesso', $_REQUEST['numprocesso']);
         $result->execute();  
@@ -42,7 +32,9 @@
             $result->bindParam(':numProcessoSocorro', $_REQUEST['numprocesso']);
             $result->execute();
           }
-        }        
+        }
+      }
+      if($type == "eventoEmergencia"){     
         $result = $db->prepare("INSERT INTO eventoEmergencia VALUES(:nomePessoa, :moradaLocal, :numProcessoSocorro, :numTelefone, :instanteChamada);");
         $result->bindParam(':nomePessoa', $_REQUEST['nome']);
         $result->bindParam(':moradaLocal', $_REQUEST['morada']);
@@ -50,13 +42,8 @@
         $result->bindParam(':numTelefone', $_REQUEST['telefone']);
         $result->bindParam(':instanteChamada', $_REQUEST['chamada']);
         $result->execute();
-
-      } elseif($type == "processoSocorro") {
-        $result = $db->prepare("INSERT INTO processoSocorro VALUES(:numProcessoSocorro);");
-        $result->bindParam(':numProcessoSocorro', $_REQUEST['numprocesso']);
-        $result->execute();
       }
-    }
+   }
     /* APAGA*/
     if ($mode == "delete") {
       if ($type == "zona") {
@@ -64,11 +51,23 @@
         $prep->bindParam(':morada', $_REQUEST['id']);
         $prep->execute();
       } elseif ($type == "eventoEmergencia" or $type == "processoSocorro") {
-        $prep = $db->prepare("DELETE FROM processoSocorro WHERE numProcessoSocorro = :numprocesso;");
-        $prep->bindParam(':numprocesso', $_REQUEST['id']);
-        $prep->execute();
+        $result = $db->prepare("SELECT COUNT(*) AS total FROM eventoEmergencia WHERE numProcessoSocorro = :numprocesso;");
+        $result->bindParam(':numprocesso', $_REQUEST['id']);
+        $result->execute();  
+        foreach($result as $row){
+          if($row['total']<=1 or $type == "processoSocorro"){
+            $prep = $db->prepare("DELETE FROM processoSocorro WHERE numProcessoSocorro = :numprocesso;");
+            $prep->bindParam(':numprocesso', $_REQUEST['id']);
+            $prep->execute();
+          }
+          else{
+            $prep = $db->prepare("DELETE FROM eventoEmergencia WHERE numTelefone = :telefone;");
+            $prep->bindParam(':telefone', $_REQUEST['id4']);
+            $prep->execute();
+          }
       }
     }
+  }
     echo("<a href='a.html' style='position:fixed;left:30px;top:50px'><button class='btn btn-dark' style='background: #000000 !important;color: #ffffff' type='button'>Voltar</button></a><br><br>");
     /* ZONA*/
     $prep = $db->prepare("SELECT moradaLocal FROM zona;");
