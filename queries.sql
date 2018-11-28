@@ -34,14 +34,12 @@
   -- de Oliveira do Hospital, onde existe pelo menos um acionamento de meios que
   -- não foi alvo de auditoria;
 
-  -- PARECIDO A PERGUNTA 5 DO ENUNCIADO PASSADO
-
 
 -- Query 4
   -- Quantos segmentos de vídeo com duração superior a 60 segundos, foram gravados
   -- em câmeras de vigilância de Monchique durante o mês de Agosto de 2018;
 
-  -- PARECIDO A PERGUNTA 6 DO ENUNCIADO PASSADO
+(SELECT COUNT(*) AS segmentos_video FROM segmentoVideo NATURAL JOIN video NATURAL JOIN vigia WHERE moradaLocal='Monchique' AND dataHoraInicio >='2018-08-01 00:00:00' AND dataHoraFim<='2018-08-31 23:59:59' AND duracao='00:01:00');
 
 
 -- Query 5
@@ -61,7 +59,7 @@ SELECT nummeio, nomeentidade FROM (
 
 -- Query 6
   --Liste as entidades que forneceram meios de combate a todos os Processos de socorro que acionaram meios;
-  --Vi pelos slides mas ainda nao esta correto 
+  --Vi pelos slides mas ainda nao esta correto
 
 SELECT nomeEntidade FROM (acciona NATURAL JOIN meioCombate)
 	WHERE numProcessoSocorro IN(
