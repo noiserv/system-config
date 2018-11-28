@@ -6,4 +6,7 @@
 
   $db = new PDO("pgsql:host=$host;dbname=$dbname", $user, $password);
   $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+  $mode = isset($_REQUEST['mode']) ? $_REQUEST['mode'] : '';
+  $type = isset($_REQUEST['type']) ? $_REQUEST['type'] : '';
 ?>
