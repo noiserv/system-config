@@ -89,4 +89,16 @@ INSERT INTO solicita VALUES ('0','2018-11-18 10:00:00','1','2018-11-21 10:00:00'
 
 -- Edge case for query 5
 INSERT INTO meio VALUES ('666','useless','quarto');
+<<<<<<< HEAD
+INSERT INTO meioCombate VALUES ('666','quarto');
+-- For query 6
+INSERT INTO processoSocorro VALUES ('2');
+INSERT INTO acciona VALUES ('666','quarto','2');
+INSERT INTO entidadeMeio VALUES('seis');
+INSERT INTO meio VALUES ('55','now','seis');
+INSERT INTO acciona VALUES ('55','seis','2');
+
+
+=======
 INSERT INTO meioCombate VALUES ('666','quarto')
+>>>>>>> d4130e3fd3e4f81fe31e0ce32b22faaa1f25a437
