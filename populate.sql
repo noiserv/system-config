@@ -1,14 +1,12 @@
 ﻿-- Camaras de Vigilancia
-INSERT INTO camara VALUES ('0');
-INSERT INTO camara VALUES ('1');
-INSERT INTO camara VALUES ('2');
-INSERT INTO camara VALUES ('3');
+INSERT INTO camara VALUES (DEFAULT);
+INSERT INTO camara VALUES (DEFAULT);
+INSERT INTO camara VALUES (DEFAULT);
+INSERT INTO camara VALUES (DEFAULT);
+INSERT INTO camara VALUES (DEFAULT);
+
 
 -- video
-INSERT INTO video VALUES ('0', '2018-11-18 10:00:00', '2018-11-18 10:59:59');
-INSERT INTO video VALUES ('0', '2018-11-18 11:00:00', '2018-11-18 11:59:59');
-INSERT INTO video VALUES ('0', '2018-11-18 12:00:00', '2018-11-18 12:59:59');
-
 INSERT INTO video VALUES ('1', '2018-11-18 10:00:00', '2018-11-18 10:59:59');
 INSERT INTO video VALUES ('1', '2018-11-18 11:00:00', '2018-11-18 11:59:59');
 INSERT INTO video VALUES ('1', '2018-11-18 12:00:00', '2018-11-18 12:59:59');
@@ -16,14 +14,18 @@ INSERT INTO video VALUES ('1', '2018-11-18 12:00:00', '2018-11-18 12:59:59');
 INSERT INTO video VALUES ('2', '2018-11-18 10:00:00', '2018-11-18 10:59:59');
 INSERT INTO video VALUES ('2', '2018-11-18 11:00:00', '2018-11-18 11:59:59');
 INSERT INTO video VALUES ('2', '2018-11-18 12:00:00', '2018-11-18 12:59:59');
-INSERT INTO video VALUES ('2', '2018-08-01 00:00:00', '2018-08-31 23:59:59');
-INSERT INTO video VALUES ('3', '2018-08-02 00:00:00', '2018-08-31 23:59:59');
+
+INSERT INTO video VALUES ('3', '2018-11-18 10:00:00', '2018-11-18 10:59:59');
+INSERT INTO video VALUES ('3', '2018-11-18 11:00:00', '2018-11-18 11:59:59');
+INSERT INTO video VALUES ('3', '2018-11-18 12:00:00', '2018-11-18 12:59:59');
+INSERT INTO video VALUES ('3', '2018-08-01 00:00:00', '2018-08-31 23:59:59');
+INSERT INTO video VALUES ('4', '2018-08-02 00:00:00', '2018-08-31 23:59:59');
 
 
 -- Segmentos de Video
-INSERT INTO segmentoVideo VALUES ('0', '0', '2018-11-18 10:00:00','00:00:50');
-INSERT INTO segmentoVideo VALUES ('2', '2', '2018-08-01 00:00:00', '00:01:00');
-INSERT INTO segmentoVideo VALUES ('3', '3', '2018-08-02 00:00:00', '00:01:00');
+INSERT INTO segmentoVideo VALUES ('1', '1', '2018-11-18 10:00:00','00:00:50');
+--INSERT INTO segmentoVideo VALUES ('3', '3', '2018-08-01 00:00:00', '00:01:00');
+--INSERT INTO segmentoVideo VALUES ('4', '4', '2018-08-02 00:00:00', '00:01:00');
   /* there seems to be kind of a designflaw here, because we can only have segments that
   match the exact time of a video and not inbetween videos FIXME */
 --INSERT INTO segmentoVideo VALUES ('0', '0', '2018-11-18 10:00:00','00:00:50');
@@ -80,7 +82,7 @@ INSERT INTO coordenador VALUES ('1');
 
 INSERT INTO audita VALUES ('0','0','primeiro','1','2018-12-20 10:00:00', '2018-12-20 22:00:00', '2018-12-20 09:00:00','quero auditar');
 
-INSERT INTO solicita VALUES ('0','2018-11-18 10:00:00','0','2018-11-21 10:00:00','2018-11-22 10:00:00');
+INSERT INTO solicita VALUES ('0','2018-11-18 10:00:00','1','2018-11-21 10:00:00','2018-11-22 10:00:00');
 
 
 -- EDGE CASES

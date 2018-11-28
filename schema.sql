@@ -17,15 +17,16 @@ DROP TABLE IF EXISTS coordenador cascade;
 DROP TABLE IF EXISTS audita cascade;
 DROP TABLE IF EXISTS solicita cascade;
 
+
 CREATE TABLE camara (
-    camNum NUMERIC(255) NOT NULL  unique,
+    camNum SERIAL unique,
     PRIMARY KEY(camNum)
 );
 
 
 
 CREATE TABLE video (
-    camNum NUMERIC(255) NOT NULL, -- duvida? isto nao tem que ser unique FIXME
+    camNum integer NOT NULL, -- duvida? isto nao tem que ser unique FIXME
     dataHoraInicio TIMESTAMP NOT NULL,
     dataHoraFim TIMESTAMP NOT NULL,
     PRIMARY KEY(camNum, dataHoraInicio),
@@ -34,7 +35,7 @@ CREATE TABLE video (
 
 
 CREATE TABLE segmentoVideo (
-  camNum NUMERIC(255) NOT NULL unique,
+  camNum integer NOT NULL unique,
   segmentNum NUMERIC(255) NOT NULL unique,
   dataHoraInicio TIMESTAMP NOT NULL unique,
   duracao TIME NOT NULL,
@@ -50,7 +51,7 @@ CREATE TABLE zona (
 
 CREATE TABLE vigia (
   moradaLocal VARCHAR(255) NOT NULL, --tem de ser UNIQUE??
-  camNum NUMERIC(255) NOT NULL ,
+  camNum integer NOT NULL ,
   PRIMARY KEY(moradaLocal,camNum),
   -- a camNUm e uma FUNCTION?
   FOREIGN KEY(moradaLocal) REFERENCES zona(moradaLocal)  ON DELETE CASCADE ON UPDATE CASCADE
@@ -159,7 +160,7 @@ CREATE TABLE audita(
 CREATE TABLE solicita(
     idCoordenador NUMERIC(255) NOT NULL ,
     dataHoraInicioVideo TIMESTAMP NOT NULL,
-    camNum NUMERIC(255) NOT NULL,
+    camNum integer NOT NULL,
     dataHoraInicio TIMESTAMP NOT NULL,
     dataHoraFim TIMESTAMP NOT NULL,
     PRIMARY KEY(idCoordenador,dataHoraInicioVideo,camNum),
