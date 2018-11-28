@@ -22,24 +22,27 @@
         $result = $db->prepare("INSERT INTO zona VALUES(:moradaLocal);");
         $result->bindParam(':moradaLocal', $_REQUEST['morada']);
         $result->execute();
-      } elseif ($type == "eventoEmergencia") {
-        /*
-        $result = $db->prepare("SELECT moradaLocal FROM zona WHERE moradaLocal = :x;");
-        $result->bindParam(':x', $_REQUEST['morada']);
+      } elseif ($type == "eventoEmergencia") { 
+        $result = $db->prepare("SELECT COUNT(*) AS total FROM zona WHERE moradaLocal = :morada;");
+        $result->bindParam(':morada', $_REQUEST['morada']);
         $result->execute();  
         foreach($result as $row){
-          if($row['moradalocal']==null){
+          if($row['total']<1){
             $result = $db->prepare("INSERT INTO zona VALUES(:moradaLocal);");
             $result->bindParam(':moradaLocal', $_REQUEST['morada']);
             $result->execute();
           }
+        }
+        $result = $db->prepare("SELECT COUNT(*) AS total FROM processoSocorro WHERE numProcessoSocorro = :numprocesso;");
+        $result->bindParam(':numprocesso', $_REQUEST['numprocesso']);
+        $result->execute();  
+        foreach($result as $row){
+          if($row['total']<1){
+            $result = $db->prepare("INSERT INTO processoSocorro VALUES(:numProcessoSocorro);");
+            $result->bindParam(':numProcessoSocorro', $_REQUEST['numprocesso']);
+            $result->execute();
+          }
         }        
-
-        $result = $db->prepare("INSERT INTO processoSocorro VALUES(:numProcessoSocorro);");
-        $result->bindParam(':numProcessoSocorro', $_REQUEST['numprocesso']);
-        $result->execute();*/
-        
-
         $result = $db->prepare("INSERT INTO eventoEmergencia VALUES(:nomePessoa, :moradaLocal, :numProcessoSocorro, :numTelefone, :instanteChamada);");
         $result->bindParam(':nomePessoa', $_REQUEST['nome']);
         $result->bindParam(':moradaLocal', $_REQUEST['morada']);
