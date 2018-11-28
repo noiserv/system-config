@@ -8,40 +8,45 @@
 <?php
   try  {
     include 'config.php';
-    $mode = isset($_REQUEST['mode']) ? $_REQUEST['mode'] : '';
-    $type = isset($_REQUEST['type']) ? $_REQUEST['type'] : '';
-    $id = isset($_REQUEST['id']) ? $_REQUEST['id'] : '';
-    $id2 = isset($_REQUEST['id2']) ? $_REQUEST['id2'] : '';
-    $id3 = isset($_REQUEST['id3']) ? $_REQUEST['id3'] : '';
-    $id4 = isset($_REQUEST['id4']) ? $_REQUEST['id4'] : '';
-    $id5 = isset($_REQUEST['id5']) ? $_REQUEST['id5'] : '';
-
     /* ADICIONA*/
     if ($mode == "add") {
-     if ($type == "meio") {
-        $result = $db->prepare("INSERT INTO meio VALUES(:numMeio, :nomeMeio, :nomeEntidade);");
-        $result->bindParam(':numMeio', $_REQUEST['nummeio']);
-        $result->bindParam(':nomeMeio', $_REQUEST['nomemeio']);
-        $result->bindParam(':nomeEntidade', $_REQUEST['nomeentidade']);
-        $result->execute();
-      } elseif ($type == "entidade") {
-        $result = $db->prepare("INSERT INTO entidadeMeio VALUES(:nomeEntidade);");
-        $result->bindParam(':nomeEntidade', $_REQUEST['nomeentidade']);
-        $result->execute();
+      if ($type == "meio" or $type == "entidade") {
+        $result = $db->prepare("SELECT COUNT(*) AS total FROM entidadeMeio WHERE nomeEntidade = :nomeentidade;");
+        $result->bindParam(':nomeentidade', $_REQUEST['nomeentidade']);
+        $result->execute();  
+        foreach($result as $row){
+          if($row['total']<1){
+            $result = $db->prepare("INSERT INTO entidadeMeio VALUES(:nomeEntidade);");
+            $result->bindParam(':nomeEntidade', $_REQUEST['nomeentidade']);
+            $result->execute();
+          }
+        }
+        if($type == "meio"){
+          $result = $db->prepare("INSERT INTO meio VALUES(:numMeio, :nomeMeio, :nomeEntidade);");
+          $result->bindParam(':numMeio', $_REQUEST['nummeio']);
+          $result->bindParam(':nomeMeio', $_REQUEST['nomemeio']);
+          $result->bindParam(':nomeEntidade', $_REQUEST['nomeentidade']);
+          $result->execute();
+        }
       }
     }
     /* APAGA*/
     if ($mode == "delete") {
-      if ($type == "meio"){
-        $result = $db->prepare("DELETE FROM meio WHERE numMeio = :nummeio AND nomeMeio = :nomemeio AND nomeEntidade = :nomeentidade;");
-        $result->bindParam(':nummeio', $_REQUEST['id']);
-        $result->bindParam(':nomemeio', $_REQUEST['id2']);
-        $result->bindParam(':nomeentidade', $_REQUEST['id3']);
-        $result->execute();
-      }elseif ($type == "entidade"){
-        $prep = $db->prepare("DELETE FROM entidadeMeio WHERE nomeEntidade = :nomeentidade;");
-        $prep->bindParam(':nomeentidade', $_REQUEST['id']);
-        $prep->execute();
+      $result = $db->prepare("SELECT COUNT(*) AS total FROM meio WHERE nomeEntidade = :nomeentidade;");
+      $result->bindParam(':nomeentidade', $_REQUEST['id']);
+      $result->execute();  
+      foreach($result as $row){
+        if($row['total']<=1 or $type == "entidade"){
+          $prep = $db->prepare("DELETE FROM entidadeMeio WHERE nomeEntidade = :nomeentidade;");
+          $prep->bindParam(':nomeentidade', $_REQUEST['id']);
+          $prep->execute();
+        }else{
+          $result = $db->prepare("DELETE FROM meio WHERE numMeio = :nummeio AND nomeMeio = :nomemeio AND nomeEntidade = :nomeentidade;");
+          $result->bindParam(':nummeio', $_REQUEST['id3']);
+          $result->bindParam(':nomemeio', $_REQUEST['id2']);
+          $result->bindParam(':nomeentidade', $_REQUEST['id']);
+          $result->execute();
+        }
       }
     }
     
@@ -64,7 +69,7 @@
         echo($row['nomemeio']);
         echo("</td><td align='center'>");
         echo($row['nomeentidade']);
-        echo("</td><td><a href=\"a2.php?mode=delete&type=meio&id={$row['nummeio']}&id2={$row['nomemeio']}&id3={$row['nomeentidade']}\">delete</a></td></tr>\n");
+        echo("</td><td><a href=\"a2.php?mode=delete&type=meio&id3={$row['nummeio']}&id2={$row['nomemeio']}&id={$row['nomeentidade']}\">delete</a></td></tr>\n");
     }
     echo("</table><br><br>");
     echo("<form align='center' action='a2.php' method='post'>");
