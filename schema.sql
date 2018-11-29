@@ -69,7 +69,7 @@ CREATE TABLE eventoEmergencia (
   numTelefone NUMERIC(255) NOT NULL unique, --NAO TEM DE TER 9 DIGITIOS? OU NAO? TIPO +351967776543?
   instanteChamada TIMESTAMP NOT NULL unique,
   duracao TIME NOT NULL,
-  PRIMARY KEY(numTelefone, nomePessoa),
+  PRIMARY KEY(numTelefone, instanteChamada),
   FOREIGN KEY(moradaLocal) REFERENCES zona(moradaLocal),
   FOREIGN KEY(numProcessoSocorro) REFERENCES processoSocorro(numProcessoSocorro)  ON DELETE CASCADE ON UPDATE CASCADE
 );
