@@ -66,8 +66,8 @@ CREATE TABLE eventoEmergencia (
   nomePessoa VARCHAR(255) NOT NULL,
   moradaLocal VARCHAR(255) NOT NULL,
   numProcessoSocorro NUMERIC(255) , --e um varchar ou inteiro?
-  numTelefone NUMERIC(255) NOT NULL unique, --NAO TEM DE TER 9 DIGITIOS? OU NAO? TIPO +351967776543?
-  instanteChamada TIMESTAMP NOT NULL unique,
+  numTelefone NUMERIC(255) NOT NULL, --NAO TEM DE TER 9 DIGITIOS? OU NAO? TIPO +351967776543?
+  instanteChamada TIMESTAMP NOT NULL,
   duracao TIME NOT NULL,
   PRIMARY KEY(numTelefone, instanteChamada),
   FOREIGN KEY(moradaLocal) REFERENCES zona(moradaLocal),
