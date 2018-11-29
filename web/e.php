@@ -3,6 +3,9 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
   </head>
   <body>
+  <div style='position:fixed;left:30px;top:50px;'>
+    <a href='index.html'><button class='btn btn-dark' style='background: #000000 !important;color: #ffffff' type='button'>Voltar</button></a><br><br>
+  </div>
 <?php
   try {
     include 'config.php';
@@ -10,9 +13,6 @@
     $sql = "SELECT numMeio,nomeEntidade FROM acciona;";
     $result = $db->prepare($sql);
     $result->execute();
-
-    $mode = isset($_REQUEST['mode']) ? $_REQUEST['mode'] : '';
-    $type = isset($_REQUEST['type']) ? $_REQUEST['type'] : '';
 
     if ($mode == "find") {
       if ($type == "numprocesso") {
@@ -40,7 +40,8 @@
 
     $db = null;
   } catch (PDOException $e) {
-    echo("<p>ERROR: {$e->getMessage()}</p>");
+    echo("<div align='center'><br><p>ERROR: {$e->getMessage()}</p>");
+    echo("<a href='e.php'><button class='btn btn-dark' style='background: #000000 !important;color: #ffffff' type='button'>Tente outra vez</button></a></div>");
   }
 ?>
   <div style="text-align:center">
@@ -50,8 +51,7 @@
       <p><input type='hidden' name='mode' value='find'/></p>
       <p><input type='hidden' name='type' value='numprocesso'/></p>
       <p>numProcesso: <input type='text' name='numProcc'/></p>
-      <button type='find' value='find'>Submit</button>
-      <a href="http://web.tecnico.ulisboa.pt/ist186474/testing/index.html"><buttom type='buttom'>Voltar</buttom></a>
+      <button class='btn btn-info' type='find' value='find'>Submit</button>
     </form>
   </div>
   </body>

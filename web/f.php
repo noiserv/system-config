@@ -3,6 +3,9 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
   </head>
   <body>
+  <div style='position:fixed;left:30px;top:50px;'>
+    <a href='index.html'><button class='btn btn-dark' style='background: #000000 !important;color: #ffffff' type='button'>Voltar</button></a><br><br>
+  </div>
 <?php
   header('Content-Type: text/html; charset=utf-8');
   try {
@@ -11,9 +14,6 @@
     $sql = "SELECT numMeio,nomeEntidade FROM meioSocorro NATURAL JOIN acciona NATURAL JOIN eventoEmergencia;";
     $result = $db->prepare($sql);
     $result->execute();
-
-    $mode = isset($_REQUEST['mode']) ? $_REQUEST['mode'] : '';
-    $type = isset($_REQUEST['type']) ? $_REQUEST['type'] : '';
 
     if ($mode == "get") {
       if ($type == "morada") {
@@ -43,7 +43,8 @@
     $db = null;
 
   } catch (PDOException $e) {
-    echo("<p>ERROR: {$e->getMessage()}</p>");
+    echo("<div align='center'><br><p>ERROR: {$e->getMessage()}</p>");
+    echo("<a href='f.php'><button class='btn btn-dark' style='background: #000000 !important;color: #ffffff' type='button'>Tente outra vez</button></a></div>");
   }
 ?>
   <div style="text-align:center">
@@ -54,9 +55,7 @@
     <p><input type='hidden' name='mode' value='get'/></p>
     <p><input type='hidden' name='type' value='morada'/></p>
     <p>morada: <input type='text' name='morada'/></p>
-    <button type='get' value='get'>Submit</button>
-    <a href="http://web.tecnico.ulisboa.pt/ist186474/testing/"><button type='buttom'>Voltar</button></a>
-
+    <button class='btn btn-info' type='get' value='get'>Submit</button>
     </form>
   </div>
   </body>

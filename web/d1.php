@@ -3,14 +3,12 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
   </head>
   <body>
+  <div style='position:fixed;left:30px;top:50px;'>
+    <a href='d.html'><button class='btn btn-dark' style='background: #000000 !important;color: #ffffff' type='button'>Voltar</button></a><br><br>
+  </div>
 <?php
   try {
     include 'config.php';
-
-    /**
-     * requests processing
-     **/
-    $mode = isset($_REQUEST['mode']) ? $_REQUEST['mode'] : '';
 
     if ($mode == "add") {
       /*echo($_REQUEST['numProcessoSocorro']);
@@ -31,10 +29,10 @@
     $result->execute();
   ?>
     <br><br><br>
-    <h1 align='center'><strong>Associacoes atuais</h1>
+    <h1 align='center'><strong>Associa&ccedil;&otilde;es atuais</h1>
     <p align='center'><strong>Processos de Socorro <-> Meios</p>
     <table border=\"1\" align='center'>
-    <tr><td><strong>N&uacutemero dos Meios:</td><td><strong>Nome das Entidades:</td><td><strong>N&uacutemero dos Processos:</td></tr>
+    <tr><td><strong>N&uacute;mero dos Meios:</td><td><strong>Nome das Entidades:</td><td><strong>N&uacute;mero dos Processos:</td></tr>
 
   <?php
     foreach($result as $row)
@@ -60,7 +58,7 @@
 
     <h1 align='center'><strong>Processos de Socorro</h1>
     <table border='1' align='center'>
-    <tr><td><strong>Número dos Processos de Socorro:</td></tr>
+    <tr><td><strong>N&uacute;mero dos Processos de Socorro:</td></tr>
 
   <?php
     foreach($result as $row)
@@ -80,7 +78,7 @@
     <br><br><br>
     <h1 align='center'><strong>Meios</h1>
     <table border='1' align='center'>
-    <tr><td><strong>Numero dos Meios:</td><td><strong>Nome dos Meios:</td><td><strong>Nome das Entidades:</td></tr>
+    <tr><td><strong>N&uacute;mero dos Meios:</td><td><strong>Nome dos Meios:</td><td><strong>Nome das Entidades:</td></tr>
 
   <?php
     foreach($result as $row)
@@ -98,7 +96,7 @@
     <div style='text-align:center'>
       <br><br>
       <form action='d1.php' method='post'>
-      <h3>adicionar associacao: meio - processo socorro</h3>
+      <h3>Adicionar associa&ccedil;&atilde;o: meio - processo socorro</h3>
       <p><input type='hidden' name='mode' value='add'/></p>
 
 
@@ -140,14 +138,11 @@
     $db = null;
 
   } catch (PDOException $e) {
-    echo("<p>ERROR: {$e->getMessage()}</p>");
+    echo("<div align='center'><br><p>ERROR: {$e->getMessage()}</p>");
+    echo("<a href='d1.php'><button class='btn btn-dark' style='background: #000000 !important;color: #ffffff' type='button'>Tente outra vez</button></a></div>");
   }
 ?>
-      <br><br>
 
-      <form action='d1.php' method='post'>
-        <a href="http://web.tecnico.ulisboa.pt/ist186474/testing/d.html"><buttom class="btn btn-info" type='buttom'>Voltar</buttom></a>
-      </form>
     </div>
   </body>
 </html>
