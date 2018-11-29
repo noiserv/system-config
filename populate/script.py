@@ -128,8 +128,8 @@ def populate_eventoEmergencia():
         duration        = datetime.timedelta(minutes=random.randint(0,59), seconds=random.randint(0,59))
 
         j = random.randint(0,99)
-        print("INSERT INTO eventoEmergencia VALUES ('%s','%s','%d','%s','%s', '%s');" % \
-         (nomes[j],moradas[j],i,phones[j], instanteChamada, str(duration) ))
+        print("INSERT INTO eventoEmergencia VALUES ('%s','%s','%d','%s','%s');" % \
+         (nomes[j],moradas[j],i,phones[j], instanteChamada ))
 
 
 def populate_entidadeMeio():
@@ -146,13 +146,13 @@ def populate_meio():
 
         # Choose the type of meio that it is
         if (i%3==0):
-            print("INSERT INTO meioCombate VALUES ('%s','%s');" % (i, nomesMeios[i]))
+            print("INSERT INTO meioCombate VALUES ('%s','%s');" % (i, entidades[i]))
 
         if (i%3==1):
-            print("INSERT INTO meioApoio VALUES ('%s','%s');" % (i, nomesMeios[i]))
+            print("INSERT INTO meioApoio VALUES ('%s','%s');" % (i, entidades[i]))
 
         if (i%3==2):
-            print("INSERT INTO meioSocorro VALUES ('%s','%s');" % (i, nomesMeios[i]))
+            print("INSERT INTO meioSocorro VALUES ('%s','%s');" % (i, entidades[i]))
 
 def populate_transporta():
     """ todos os meios de Socorro sao alocados por uma entidade qualquer e
@@ -171,8 +171,7 @@ def populate_alocado():
 def populate_acciona():
     """ cada meio e acionado por um processo qualquer sempre """
     for i in range(0,100):
-        if (i%3==2): # se for meio Socorro
-            print("INSERT INTO acciona VALUES ('%s','%s','%s')" % (i, entidades[i], random.randint(0,99)))
+        print("INSERT INTO acciona VALUES ('%s','%s','%s');" % (i, entidades[i], i))
 
 def populate_coordenador():
     """ coordenadores numerados de 0 a 99 """
@@ -190,8 +189,50 @@ def populate_audita():
       dataAuditoria TIMESTAMP NOT NULL,
       texto VARCHAR(255) , --texto pode ser null?
        """
+
     for i in range(0,100):
-        print("INSERT INTO coordenador VALUES ('%d'); " % (i))
+        datahoraInicio     = datetime.datetime(2018, 8, 12, random.randrange(0,12),random.randrange(0,59),0)
+        datahoraFim        = datetime.datetime(2018, 8, 12, random.randrange(13,23),random.randrange(0,59),0)
+        dataAuditoria      = datetime.datetime(2018, 8, 12, 0, 0, 0)
+        numProcessoSocorro = i
+
+        print("INSERT INTO audita VALUES ('%d','%s','%s','%d','%s','%s','%s','%s'); " % (i, i, entidades[i], numProcessoSocorro, \
+                                                str(datahoraInicio), str(datahoraFim), str(dataAuditoria), randstring(40)))
+
+def populate_solicita():
+    duration      = datetime.timedelta(minutes=random.randrange(0,59))
+
+    begin_time = datetime.datetime(2018, 8, 12, 10,0,0)
+    populate_solicita_aux(45, begin_time, 30)
+
+    # Largo do Carmo, agosto 2018-08-12 10:00:00 ->
+    begin_time = datetime.datetime(2018, 8, 12, 10,0,0)
+    populate_solicita_aux(5, begin_time, 10)
+
+    # Campo Pequeno, agosto 2018-08-12 09:00:00 ->
+    begin_time = datetime.datetime(2018, 8, 12, 9,0,0)
+    populate_solicita_aux(19,begin_time, 10)
+
+    # Campo dos Martires da Patria, agosto 2018-08-11 09:00:00 ->
+    begin_time = datetime.datetime(2018, 8, 11, 9,0,0)
+    populate_solicita_aux(43, begin_time, 30)
+
+    # Campo Grande, agosto 2018-08-11 09:00:00 ->
+    begin_time = datetime.datetime(2018, 8, 11, 9,0,0)
+    populate_solicita_aux(94, begin_time, 50)
+
+
+def populate_solicita_aux(camNum, begin_time, n):
+    date = begin_time
+    hour  = datetime.timedelta(hours=1)
+    end   = datetime.timedelta(minutes=59, seconds=59)
+
+    idCoordenador = n
+    for i in range(0,n):
+        print("INSERT INTO solicita VALUES ('%d','%s','%d','%s','%s'); " % (\
+        idCoordenador, str(date), camNum, str(date), str(date+end)))
+        date += hour
+
 
 
 """ Funcoes Auxiliares """
@@ -200,9 +241,9 @@ def randchar():
     """ generates a random UPPERCASE char """
     return chr(random.randint(65,90))
 
-def randstring():
+def randstring(length):
     """ generates a random UPPERCASE string of 9 characters """
-    return "".join([ randchar() for i in range(0,10)])
+    return "".join([ randchar() for i in range(0,length)])
 
 def genPhoneNumber():
     """ generates a random portuguese like number """
@@ -238,7 +279,6 @@ populate_processoSocorro()
 print("")
 populate_eventoEmergencia()
 print("")
-"""
 populate_entidadeMeio()
 print("")
 populate_meio()
@@ -247,5 +287,12 @@ populate_transporta()
 print("")
 populate_alocado()
 print("")
+populate_acciona()
+print("")
 populate_coordenador()
+print("")
+populate_audita()
+print("")
+populate_solicita()
+"""
 """
