@@ -3,14 +3,12 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
   </head>
   <body>
+  <div style='position:fixed;left:30px;top:50px;'>
+    <a href='d.html'><button class='btn btn-dark' style='background: #000000 !important;color: #ffffff' type='button'>Voltar</button></a><br><br>
+  </div>
 <?php
   try {
     include 'config.php';
-
-    /**
-     * requests processing
-     **/
-    $mode = isset($_REQUEST['mode']) ? $_REQUEST['mode'] : '';
 
     if ($mode == "add") {
       /* Debugging
@@ -78,14 +76,9 @@
     $db = null;
 
   } catch (PDOException $e) {
-    echo("<p>ERROR: {$e->getMessage()}</p>");
+    echo("<div align='center'><br><p>ERROR: {$e->getMessage()}</p>");
+    echo("<a href='d2.php'><button class='btn btn-dark' style='background: #000000 !important;color: #ffffff' type='button'>Tente outra vez</button></a></div>");
   }
 ?>
-      <br><br>
-
-      <form alingn="center" action='d1.php' method='post'>
-        <a href="http://web.tecnico.ulisboa.pt/ist186474/testing/d.html"><buttom class="btn btn-info" type='buttom'>Voltar</buttom></a>
-      </form>
-    </div>
   </body>
 </html>
