@@ -9,7 +9,7 @@ import random, datetime
 
 def populate_camara():
     for i in range(0,100):
-        print("INSERT INTO camara VALUES ('%d') " % (i))
+        print("INSERT INTO camara VALUES (DEFAULT);")
 
 def populate_video():
     """ videos de hora em hora para 5 camaras"""
@@ -35,7 +35,34 @@ def populate_video_aux(cam_num, begin_time, n):
     hour  = datetime.timedelta(hours=1)
     end   = datetime.timedelta(minutes=59, seconds=59)
     for i in range(0,n):
-        print("INSERT INTO video VALUES ('%d','%s','%s')" % (cam_num, date, date+end))
+        print("INSERT INTO video VALUES ('%d','%s','%s');" % (cam_num, date, date+end))
+        date += hour
+
+def populate_segments2():
+    """ videos de hora em hora para 5 camaras"""
+    # em monchique agosto 2018-08-12 10:00:00 -> 2018-08-13 15:59:59
+    populate_segments2_aux(45, datetime.datetime(2018, 8, 12, 10,0,0), 30)
+
+    # Largo do Carmo, agosto 2018-08-12 10:00:00 ->
+    populate_segments2_aux(5, datetime.datetime(2018, 8, 12, 10,0,0), 10)
+
+    # Campo Pequeno, agosto 2018-08-12 09:00:00 ->
+    populate_segments2_aux(19, datetime.datetime(2018, 8, 12, 9,0,0), 10)
+
+    # Campo dos Martires da Patria, agosto 2018-08-11 09:00:00 ->
+    populate_segments2_aux(43, datetime.datetime(2018, 8, 11, 9,0,0), 30)
+
+    # Campo Grande, agosto 2018-08-11 09:00:00 ->
+    populate_segments2_aux(94, datetime.datetime(2018, 8, 11, 9,0,0), 50)
+
+
+def populate_segments2_aux(cam_num, begin_time, n):
+    """ generates n hourly videos for the specified time """
+    date  = begin_time
+    hour  = datetime.timedelta(hours=1)
+    end   = datetime.timedelta(minutes=59, seconds=59)
+    for i in range(0,n):
+        print("INSERT INTO segmentoVideo VALUES ('%d','%s','%s','%s');" % (cam_num, i, date, end))
         date += hour
 
 
@@ -57,19 +84,18 @@ def split_into_segments(cam_num, n, begin_time, end_time):
 
     # average time of each segment
     delta = (end_time - begin_time) / n
-    print("delta. %s" % (delta))
+    #print("delta. %s" % (delta))
     cumulative_time = begin_time
 
+    count = 0
     while cumulative_time < end_time:
         # segment time = delta +- 20s
         duration = delta + datetime.timedelta(seconds=int (random.uniform(-20,20)))
-        print("INSERT INTO segmentoVideo VALUES ('%s','%s','%s', '%s')" %  (cam_num,str(cumulative_time),str(cumulative_time+ duration), duration))
+        print("INSERT INTO segmentoVideo VALUES ('%s','%s','%s', '%s');" %  \
+                        (cam_num,count,str(cumulative_time), duration))
 
         cumulative_time += duration
-
-
-
-
+        count += 1
 
 
 def populate_zona():
@@ -82,7 +108,7 @@ def populate_vigia():
         some zones are not watched
         some zones are watched by many cameras  """
     for i in range(0,100):
-        print("INSERT INTO vigia VALUES ('%s', '%s');" % (i, random.choice(moradas)))
+        print("INSERT INTO vigia VALUES ('%s', '%s');" % (random.choice(moradas),i))
 
 def populate_processoSocorro():
     """ processos de socorro numerados de 0 a 99 """
@@ -98,45 +124,48 @@ def populate_eventoEmergencia():
     eventos de emergencia ficam associados a processos de socorro em 75% das vezes
     c.c. fica a NULL """
     for i in range(0,100):
+        instanteChamada = datetime.datetime(2018, 8, 12, random.randint(0,23),random.randint(0,59),0)
+        duration        = datetime.timedelta(minutes=random.randint(0,59), seconds=random.randint(0,59))
+
         j = random.randint(0,99)
-        print("INSERT INTO eventoEmergencia VALUES ('%s','%s',%s,'%s','%s')" % \
-         (nomes[j],moradas[j],str(random.choice(["NULL",i,i,i])),phones[j][:-1], "instnatechamada"))
+        print("INSERT INTO eventoEmergencia VALUES ('%s','%s','%d','%s','%s', '%s');" % \
+         (nomes[j],moradas[j],i,phones[j], instanteChamada, str(duration) ))
 
 
 def populate_entidadeMeio():
     """ nome da entidade vem da lista de nomes de entidades """
     for i in range(0,100):
-        print("INSERT INTO entidadeMeio VALUES ('%s')" % (entidades[i]))
+        print("INSERT INTO entidadeMeio VALUES ('%s');" % (entidades[i]))
 
 def populate_meio():
     """ numMeio de 0 a 99
         nomeMeio vem da lista de nomesMeios
         entidades vem da lista de entidade """
     for i in range(0,100):
-        print("INSERT INTO meio VALUES ('%s','%s','%s')" % (i, nomesMeios[i], entidades[i]))
+        print("INSERT INTO meio VALUES ('%s','%s','%s');" % (i, nomesMeios[i], entidades[i]))
 
         # Choose the type of meio that it is
         if (i%3==0):
-            print("INSERT INTO meioCombate VALUES ('%s','%s')" % (i, nomesMeios[i]))
+            print("INSERT INTO meioCombate VALUES ('%s','%s');" % (i, nomesMeios[i]))
 
         if (i%3==1):
-            print("INSERT INTO meioApoio VALUES ('%s','%s')" % (i, nomesMeios[i]))
+            print("INSERT INTO meioApoio VALUES ('%s','%s');" % (i, nomesMeios[i]))
 
         if (i%3==2):
-            print("INSERT INTO meioSocorro VALUES ('%s','%s')" % (i, nomesMeios[i]))
+            print("INSERT INTO meioSocorro VALUES ('%s','%s');" % (i, nomesMeios[i]))
 
 def populate_transporta():
     """ todos os meios de Socorro sao alocados por uma entidade qualquer e
     com um numero de vitimas entre 0 e 5 """
     for i in range(0,100):
         if (i%3==2): # se for meio Socorro
-            print("INSERT INTO transporta VALUES ('%s','%s','%s','%s')" % (i, entidades[i], random.randint(0,5), random.randint(0,99)))
+            print("INSERT INTO transporta VALUES ('%s','%s','%s','%s');" % (i, entidades[i], random.randint(0,5), random.randint(0,99)))
 
 def populate_alocado():
     """ todos os meios de Apoio sao alocados por uma entidade qualquer """
     for i in range(0,100):
         if (i%3==1): # se for meio Apoio
-            print("INSERT INTO alocado VALUES ('%s','%s','%s','%s')" % (i, entidades[i], random.randint(0,5), random.randint(0,99)))
+            print("INSERT INTO alocado VALUES ('%s','%s','%s','%s');" % (i, entidades[i], random.randint(0,5), random.randint(0,99)))
 
 
 def populate_acciona():
@@ -194,13 +223,12 @@ nomesMeios   = readFile("nomes-estranhos.txt")
 entidades    = readFile("entidades.txt")
 
 """ populate """
-populate_segmentoVideo()
-print("")
 populate_camara()
 print("")
 populate_video()
 print("")
-populate_segmentoVideo()
+#populate_segmentoVideo()
+populate_segments2()
 print("")
 populate_zona()
 print("")
@@ -210,6 +238,7 @@ populate_processoSocorro()
 print("")
 populate_eventoEmergencia()
 print("")
+"""
 populate_entidadeMeio()
 print("")
 populate_meio()
