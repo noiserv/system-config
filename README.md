@@ -29,6 +29,8 @@ just a very basic system setup to play around with
 * queries.sql 1
 * queries.sql 6
 
+# Ver isto
+* Criar meio FK esta errada
 
 # PERGUNTAS PARA O STOR
 1. eventos de eventoEmergencia usam moradas e locais que já existem?
