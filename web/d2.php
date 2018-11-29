@@ -66,7 +66,7 @@
           echo("<option value=".$row_soc['numprocessosocorro'].">".$row_soc['numprocessosocorro']."</option>");
         }
         echo("</select>");
-        echo("<button type='submit' value='submit'>Submit</button>");
+        echo("<button class='btn btn-info' type='submit' value='submit'>Submit</button>");
         echo("</form>");
       }
       echo("</td></tr>\n");
