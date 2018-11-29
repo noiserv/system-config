@@ -47,10 +47,10 @@ INSERT INTO vigia VALUES ('Monchique','3');
 INSERT INTO processoSocorro VALUES ('0');
 INSERT INTO processoSocorro VALUES ('1');
 
-INSERT INTO eventoEmergencia VALUES ('MARIA DUARTE','Rua Joao Chagas 12,Lisboa','0','926678868','2018-11-18 10:00:00');
-INSERT INTO eventoEmergencia VALUES ('PEDRO','Rua das Caracoletas, Lisboa',NULL,'926679868','2018-10-19 10:00:00');
-INSERT INTO eventoEmergencia VALUES ('Soraia','Rua Joao CShagas 12, Lisboa',NULL,'926670868','2018-12-18 10:00:00');
-INSERT INTO eventoEmergencia VALUES ('Nika','Rua das Nikolettas 1Dto, Lisboa',NULL,'921552918','2018-11-18 20:00:00');
+INSERT INTO eventoEmergencia VALUES ('MARIA DUARTE','Rua Joao Chagas 12,Lisboa','0','926678868','2018-11-18 10:00:00','00:10:00');
+INSERT INTO eventoEmergencia VALUES ('PEDRO','Rua das Caracoletas, Lisboa',NULL,'926679868','2018-10-19 10:00:00','00:10:00');
+INSERT INTO eventoEmergencia VALUES ('Soraia','Rua Joao CShagas 12, Lisboa',NULL,'926670868','2018-12-18 10:00:00','00:10:00');
+INSERT INTO eventoEmergencia VALUES ('Nika','Rua das Nikolettas 1Dto, Lisboa',NULL,'921552918','2018-11-18 20:00:00','00:10:00');
 
 INSERT INTO entidadeMeio VALUES ('primeiro');
 INSERT INTO entidadeMeio VALUES ('segundo');

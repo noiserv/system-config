@@ -35,9 +35,9 @@ CREATE TABLE video (
 
 
 CREATE TABLE segmentoVideo (
-  camNum integer NOT NULL unique,
-  segmentNum NUMERIC(255) NOT NULL unique,
-  dataHoraInicio TIMESTAMP NOT NULL unique,
+  camNum integer NOT NULL,
+  segmentNum NUMERIC(255) NOT NULL,
+  dataHoraInicio TIMESTAMP NOT NULL,
   duracao TIME NOT NULL,
   -- duration FIXME, -- defnir o formato
   PRIMARY KEY(camNum, dataHoraInicio, segmentNum),
@@ -68,7 +68,7 @@ CREATE TABLE eventoEmergencia (
   numProcessoSocorro NUMERIC(255) , --e um varchar ou inteiro?
   numTelefone NUMERIC(255) NOT NULL unique, --NAO TEM DE TER 9 DIGITIOS? OU NAO? TIPO +351967776543?
   instanteChamada TIMESTAMP NOT NULL unique,
-  -- duration FIXME, -- defnir o formato
+  duracao TIME NOT NULL,
   PRIMARY KEY(numTelefone, nomePessoa),
   FOREIGN KEY(moradaLocal) REFERENCES zona(moradaLocal),
   FOREIGN KEY(numProcessoSocorro) REFERENCES processoSocorro(numProcessoSocorro)  ON DELETE CASCADE ON UPDATE CASCADE
