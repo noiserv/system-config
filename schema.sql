@@ -81,7 +81,7 @@ CREATE TABLE entidadeMeio (
 
 
 CREATE TABLE meio(
-  numMeio NUMERIC(255) NOT NULL unique,
+  numMeio NUMERIC(255) NOT NULL,
   nomeMeio VARCHAR(255) NOT NULL,
   nomeEntidade VARCHAR(255) NOT NULL,
   PRIMARY KEY(numMeio, nomeEntidade),
