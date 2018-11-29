@@ -1,11 +1,13 @@
 <html>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <meta http-equiv="content-type" content="text/html" charset="utf-8"/>
     <body>
       <h3>Editar meio:</h3>
       <form action="bchange.php" method="post">
         <p><input type="hidden" name="num_meio" value="<?=$_REQUEST['num_meio']?>"/></p>
         <p><input type="hidden" name="nome_entidade" value="<?=$_REQUEST['nome_entidade']?>"/></p>
         <p>Novo Nome do Meio: <input type="text" name="nmeio"/></p>
-        <p><button type='submit' value='Submit'></button> </p>
+        <p><button type='submit' value='Submit'>Submit</button> </p>
       </form>
     
       <?php
