@@ -19,18 +19,18 @@ DROP TABLE IF EXISTS solicita cascade;
 
 
 CREATE TABLE camara (
-    camNum SERIAL unique,
+    camNum SERIAL NOT NULL unique,
     PRIMARY KEY(camNum)
 );
 
 
 
 CREATE TABLE video (
-    camNum integer NOT NULL, -- duvida? isto nao tem que ser unique FIXME
+    camNum integer NOT NULL,
     dataHoraInicio TIMESTAMP NOT NULL,
     dataHoraFim TIMESTAMP NOT NULL,
     PRIMARY KEY(camNum, dataHoraInicio),
-    FOREIGN KEY(camNum) REFERENCES camara(camNum) ON DELETE CASCADE ON UPDATE CASCADE -- perceber isto FIXME
+    FOREIGN KEY(camNum) REFERENCES camara(camNum) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 
@@ -44,15 +44,16 @@ CREATE TABLE segmentoVideo (
 );
 
 CREATE TABLE zona (
-    moradaLocal VARCHAR(255) UNIQUE NOT NULL CHECK (moradaLocal <> ''), -- checks if it is not an empty string
-    PRIMARY KEY(moradaLocal)
+    moradaLocal VARCHAR(255) UNIQUE NOT NULL, 
+    PRIMARY KEY(moradaLocal),
+     CHECK (moradaLocal <> '')
 );
 
 CREATE TABLE vigia (
-  moradaLocal VARCHAR(255) NOT NULL, --tem de ser UNIQUE??
+  moradaLocal VARCHAR(255) NOT NULL, 
   camNum integer NOT NULL ,
   PRIMARY KEY(moradaLocal,camNum),
-  -- a camNUm e uma FUNCTION?
+  FOREIGN KEY(camNum) REFERENCES camara(camNum)  ON DELETE CASCADE ON UPDATE CASCADE,
   FOREIGN KEY(moradaLocal) REFERENCES zona(moradaLocal)  ON DELETE CASCADE ON UPDATE CASCADE
 );
 
@@ -64,8 +65,8 @@ CREATE TABLE processoSocorro (
 CREATE TABLE eventoEmergencia (
   nomePessoa VARCHAR(255) NOT NULL,
   moradaLocal VARCHAR(255) NOT NULL,
-  numProcessoSocorro NUMERIC(255) , --e um varchar ou inteiro?
-  numTelefone NUMERIC(255) NOT NULL, --NAO TEM DE TER 9 DIGITIOS? OU NAO? TIPO +351967776543?
+  numProcessoSocorro NUMERIC(255) NOT NULL, 
+  numTelefone NUMERIC(255) NOT NULL, 
   instanteChamada TIMESTAMP NOT NULL,
   PRIMARY KEY(numTelefone, instanteChamada),
   FOREIGN KEY(moradaLocal) REFERENCES zona(moradaLocal),
@@ -130,7 +131,7 @@ CREATE TABLE alocado(
 CREATE TABLE acciona(
   numMeio NUMERIC(255) NOT NULL,
   nomeEntidade VARCHAR(255) NOT NULL,
-  numProcessoSocorro NUMERIC(255) ,
+  numProcessoSocorro NUMERIC(255) NOT NULL,
   PRIMARY KEY(numMeio, nomeEntidade,numProcessoSocorro),
   FOREIGN KEY(numProcessoSocorro) REFERENCES processoSocorro(numProcessoSocorro)  ON DELETE CASCADE ON UPDATE CASCADE,
   FOREIGN KEY(numMeio,nomeEntidade) REFERENCES meio(numMeio, nomeEntidade)  ON DELETE CASCADE ON UPDATE CASCADE
@@ -149,12 +150,12 @@ CREATE TABLE audita(
   datahoraInicio TIMESTAMP NOT NULL,
   datahoraFim TIMESTAMP NOT NULL,
   dataAuditoria TIMESTAMP NOT NULL,
-  texto VARCHAR(255) , --texto pode ser null?
+  texto VARCHAR(255) ,
   PRIMARY KEY(idCoordenador, numMeio, nomeEntidade,numProcessoSocorro),
   FOREIGN KEY(idCoordenador) REFERENCES coordenador(idCoordenador)  ON DELETE CASCADE ON UPDATE CASCADE,
   FOREIGN KEY(numMeio,nomeEntidade,numProcessoSocorro) REFERENCES acciona(numMeio, nomeEntidade,numProcessoSocorro)  ON DELETE CASCADE ON UPDATE CASCADE,
   CHECK (datahoraFim > datahoraInicio),
-  CHECK (dataAuditoria <= NOW())
+  CHECK (dataAuditoria >= NOW())
 );
 
 CREATE TABLE solicita(
