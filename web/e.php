@@ -1,12 +1,15 @@
 <html>
   <head>
+    <meta http-equiv="content-type" content="text/html" charset="utf-8"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
   </head>
   <body>
-  <div style='position:fixed;left:30px;top:50px;'>
+    <div style='position:fixed;left:30px;top:50px;'>
     <a href='index.html'><button class='btn btn-dark' style='background: #000000 !important;color: #ffffff' type='button'>Voltar</button></a><br><br>
   </div>
+
 <?php
+  header('Content-Type: text/html; charset=utf-8');
   try {
     include 'config.php';
 
@@ -23,7 +26,7 @@
         <br><br><br>
         <p align="CENTER"><strong>Meios</p>
         <table border="1" align="CENTER">
-        <tr><td><strong>N&uacutemero dos Meios:</td><td><strong>Nome das Entidades:</td></tr>
+        <tr><td><strong>N&uacute;mero dos Meios:</td><td><strong>Nome das Entidades:</td></tr>
       <?php
         foreach($result as $row)
         {
@@ -38,10 +41,12 @@
       }
     }
 
+    $result = null;
     $db = null;
   } catch (PDOException $e) {
     echo("<div align='center'><br><p>ERROR: {$e->getMessage()}</p>");
     echo("<a href='e.php'><button class='btn btn-dark' style='background: #000000 !important;color: #ffffff' type='button'>Tente outra vez</button></a></div>");
+    
   }
 ?>
   <div style="text-align:center">

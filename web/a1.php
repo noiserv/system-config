@@ -4,7 +4,7 @@
     <meta http-equiv="content-type" content="text/html" charset="utf-8"/>
   </head>
   <body>
-  <div style='position:fixed;left:30px;top:50px;'>
+  <div style='position:fixed;left:30px;top:10px;'>
   <a href='a.html'><button class='btn btn-dark' style='background: #000000 !important;color: #ffffff' type='button'>Voltar</button></a><br><br>
     <form action='a1.php' method='post'>
       <h3>Nova Zona:<br></h3>
@@ -28,7 +28,7 @@
       <h3>Novo Processo de Socorro:<br></h3>
       <input type='hidden' name='mode' value='add'/>
       <input type='hidden' name='type' value='processoSocorro'/>
-      <input type='number' name='numprocesso' placeholder='N&uacute;mero de processo'/><br><br>
+      <input type='number' name='numprocesso' placeholder='N&uacute;mero de processo'/><br></br>
       <button class='btn btn-info' type='submit' value='submit'>Submit</button><br><br>
     </form>
   </div>
@@ -46,7 +46,8 @@
       elseif($type == "eventoEmergencia"){
         $result = $db->prepare("SELECT COUNT(*) AS total FROM zona WHERE moradaLocal = :morada;");
         $result->bindParam(':morada', $_REQUEST['morada']);
-        $result->execute();  
+        $result->execute();
+        $db->beginTransaction();
         foreach($result as $row){
           if($row['total']<1){
             $result = $db->prepare("INSERT INTO zona VALUES(:moradaLocal);");
@@ -56,21 +57,28 @@
         }
         $result = $db->prepare("SELECT COUNT(*) AS total FROM processoSocorro WHERE numProcessoSocorro = :numprocesso;");
         $result->bindParam(':numprocesso', $_REQUEST['numprocesso']);
-        $result->execute();  
+        $result->execute();
         foreach($result as $row){
           if($row['total']<1){
             $result = $db->prepare("INSERT INTO processoSocorro VALUES(:numProcessoSocorro);");
             $result->bindParam(':numProcessoSocorro', $_REQUEST['numprocesso']);
-            $result->execute();
+            if (!($result->execute())) {
+                $db->rollback();
+            }
           }
-        } 
+        }
         $result = $db->prepare("INSERT INTO eventoEmergencia VALUES(:nomePessoa, :moradaLocal, :numProcessoSocorro, :numTelefone, :instanteChamada);");
         $result->bindParam(':nomePessoa', $_REQUEST['nome']);
         $result->bindParam(':moradaLocal', $_REQUEST['morada']);
         $result->bindParam(':numProcessoSocorro', $_REQUEST['numprocesso']);
         $result->bindParam(':numTelefone', $_REQUEST['telefone']);
         $result->bindParam(':instanteChamada', $_REQUEST['chamada']);
-        $result->execute();
+        if (!($result->execute())) {
+            $db->rollback();
+        }else{
+          $db->commit();
+        }
+
       }elseif($type=='processoSocorro'){
         $result = $db->prepare("INSERT INTO processoSocorro VALUES(:numProcessoSocorro);");
         $result->bindParam(':numProcessoSocorro', $_REQUEST['numprocesso']);
@@ -86,7 +94,7 @@
       } elseif ($type == "eventoEmergencia" or $type == "processoSocorro") {
         $result = $db->prepare("SELECT COUNT(*) AS total FROM eventoEmergencia WHERE numProcessoSocorro = :numprocesso;");
         $result->bindParam(':numprocesso', $_REQUEST['numprocesso']);
-        $result->execute();  
+        $result->execute();
         foreach($result as $row){
           if($row['total']<=1 or $type == "processoSocorro"){
             $prep = $db->prepare("DELETE FROM processoSocorro WHERE numProcessoSocorro = :numprocesso;");
@@ -106,7 +114,7 @@
     $prep->execute();
     $result = $prep->fetchAll();
 
-    echo("<div style='margin-left:50px'><br><br><h1 align='center'><strong>Zonas</h1>\n");
+    echo("<div style='margin-left:400px;max-width:800px'><br><br><h1 align='center'><strong>Zonas</h1>\n");
     echo("<table border=\"2\" align='center'>");
     echo("<tr><td><b><strong>Moradas:</b></td><td></td></tr>");
 
@@ -124,7 +132,7 @@
 
     echo("<h1 align='center'><strong>Eventos de Emerg&ecirc;ncia</h1>\n");
     echo("<table border=\"2\" align='center'>");
-    echo("<tr><td><b><strong>N&uacute;mero de Processo:</b></td><td><b><strong>Moradas:</b></td><td><b><strong>Nome da Pessoa:</b></td><td><b><strong>N&uacute;mero de Telefone:</b></td><td><b><strong>Instante Chamada:</b></td><td></td></tr>\n");
+    echo("<tr><td align='center'><b><strong>N&uacute;mero de Processo:</b></td><td align='center'><b><strong>Moradas:</b></td><td align='center'><b><strong>Nome da Pessoa:</b></td><td align='center'><b><strong>N&uacute;mero de Telefone:</b></td><td align='center'><b><strong>Instante Chamada:</b></td><td></td></tr>\n");
 
     foreach($result as $row)
     {

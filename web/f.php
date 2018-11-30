@@ -1,11 +1,13 @@
 <html>
   <head>
+    <meta http-equiv="content-type" content="text/html" charset="utf-8"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
   </head>
   <body>
-  <div style='position:fixed;left:30px;top:50px;'>
+    <div style='position:fixed;left:30px;top:50px;'>
     <a href='index.html'><button class='btn btn-dark' style='background: #000000 !important;color: #ffffff' type='button'>Voltar</button></a><br><br>
   </div>
+
 <?php
   header('Content-Type: text/html; charset=utf-8');
   try {
@@ -15,36 +17,43 @@
     $result = $db->prepare($sql);
     $result->execute();
 
+
     if ($mode == "get") {
       if ($type == "morada") {
-        $result = $db->prepare("SELECT numMeio,nomeEntidade FROM meioSocorro NATURAL JOIN acciona NATURAL JOIN eventoEmergencia WHERE moradaLocal= :morada;");
-        $result->bindParam(':morada', $_REQUEST['moradaLocal']);
-        $result->execute();?>
+        if ( !(empty($_REQUEST['morada']))){
 
-        <br><br><br>
-        <p align="CENTER"><strong>Meios de Socorro</p>
-        <table border="1" align="CENTER">
-        <tr><td><strong>N&uacute;mero dos Meios:</td><td><strong>Nome das Entidades:</td></tr>
+          $result = $db->prepare("SELECT numMeio,nomeEntidade FROM meioSocorro NATURAL JOIN acciona NATURAL JOIN eventoEmergencia WHERE moradaLocal= :morada;");
+          $result->bindParam(':morada', $_REQUEST['morada']);
+          $result->execute();
+          echo("<script type='text/javascript'>alert('Submetido com sucesso!');</script>");
+          
+          ?>
+
+          <br><br><br>
+          <p align="CENTER"><strong>Meios de Socorro</p>
+            <table border="1" align="CENTER">
+              <tr><td><strong>N&uacute;mero dos Meios:</td><td><strong>Nome das Entidades:</td></tr>
 
   <?php
-        foreach($result as $row)
-        {
-          echo("<tr><td align=\"CENTER\">");
-          echo($row['nummeio']);
-          echo("</td><td align=\"CENTER\">");
-          echo($row['nomeentidade']);
-          echo("</td></tr>\n");
-        }
+          foreach($result as $row)
+          {
+            echo("<tr><td align=\"CENTER\">");
+            echo($row['nummeio']);
+            echo("</td><td align=\"CENTER\">");
+            echo($row['nomeentidade']);
+            echo("</td></tr>\n");
+          }
 
-        echo("</table>\n");
-        $db = null;
+          echo("</table>\n");
+        }else{
+          echo("<script type='text/javascript'>alert('ERROR: morada não pode ser vazia!');</script>");
+        }
       }
     }
     $db = null;
 
   } catch (PDOException $e) {
-    echo("<div align='center'><br><p>ERROR: {$e->getMessage()}</p>");
-    echo("<a href='f.php'><button class='btn btn-dark' style='background: #000000 !important;color: #ffffff' type='button'>Tente outra vez</button></a></div>");
+    echo("<p>ERROR: {$e->getMessage()}</p>");
   }
 ?>
   <div style="text-align:center">

@@ -53,21 +53,17 @@
         $prep = $db->prepare("SELECT COUNT(*) AS total FROM meio WHERE numMeio = :nMeio AND nomeEntidade = :nEntidade;");
         $prep->bindParam(':nMeio', $_REQUEST['nummeio']);
         $prep->bindParam(':nEntidade', $_REQUEST['nomeentidade']);
-        $prep->execute(); 
+        $prep->execute();
         foreach($prep as $row){
           if($row[total]<1){
-            echo("<script type='text/javascript'>alert('ERRO: meio não existe. Insira-o!');</script>");
-            ?>
-            <script>
-            document.getElementById("input").style.display = 'block';
-            </script>
-            <?php
+            echo("<script type='text/javascript'>alert('ERROR: meio não existe. Insira-o!');</script>");
+            echo("<script>document.getElementById('input').style.display = 'block';</script>");
             }
           else{
             $result = $db->prepare("INSERT INTO meioCombate VALUES(:nMeio,:nEntidade);");
             $result->bindParam(':nMeio', $_REQUEST['nummeio']);
             $result->bindParam(':nEntidade', $_REQUEST['nomeentidade']);
-            $result->execute(); 
+            $result->execute();
           }
         }
       }
@@ -76,16 +72,17 @@
         $prep = $db->prepare("SELECT COUNT(*) AS total FROM meio WHERE numMeio = :nMeio AND nomeEntidade = :nEntidade;");
         $prep->bindParam(':nMeio', $_REQUEST['nummeio']);
         $prep->bindParam(':nEntidade', $_REQUEST['nomeentidade']);
-        $prep->execute(); 
+        $prep->execute();
         foreach($prep as $row){
           if($row[total]<1){
-            echo("<script type='text/javascript'>alert('ERRO: meio não existe. Insira-o!');</script>");
+            echo("<script type='text/javascript'>alert('ERROR: meio não existe. Insira-o!');</script>");
+            echo("<script>document.getElementById('input').style.display = 'block';</script>");
             }
           else{
             $result = $db->prepare("INSERT INTO meioApoio VALUES(:nMeio,:nEntidade);");
             $result->bindParam(':nMeio', $_REQUEST['nummeio']);
             $result->bindParam(':nEntidade', $_REQUEST['nomeentidade']);
-            $result->execute(); 
+            $result->execute();
           }
         }
       }
@@ -93,16 +90,17 @@
         $prep = $db->prepare("SELECT COUNT(*) AS total FROM meio WHERE numMeio = :nMeio AND nomeEntidade = :nEntidade;");
         $prep->bindParam(':nMeio', $_REQUEST['nummeio']);
         $prep->bindParam(':nEntidade', $_REQUEST['nomeentidade']);
-        $prep->execute(); 
+        $prep->execute();
         foreach($prep as $row){
           if($row[total]<1){
-            echo "<script type='text/javascript'>alert('ERRO: meio não existe. Insira-o!');</script>";
+            echo "<script type='text/javascript'>alert('ERROR: meio não existe. Insira-o!');</script>";
+            echo("<script>document.getElementById('input').style.display = 'block';</script>");
             }
           else{
             $result = $db->prepare("INSERT INTO meioSocorro VALUES(:nMeio,:nEntidade);");
             $result->bindParam(':nMeio', $_REQUEST['nummeio']);
             $result->bindParam(':nEntidade', $_REQUEST['nomeentidade']);
-            $result->execute(); 
+            $result->execute();
           }
         }
       }
@@ -113,7 +111,7 @@
         $prep = $db->prepare("SELECT COUNT(*) AS total FROM meioCombate WHERE numMeio = :nMeio AND nomeEntidade = :nEntidade;");
         $prep->bindParam(':nMeio', $_REQUEST['nummeio']);
         $prep->bindParam(':nEntidade', $_REQUEST['nomeentidade']);
-        $prep->execute(); 
+        $prep->execute();
         foreach($prep as $row){
           if($row['total']<=1){
             $prep = $db->prepare("DELETE FROM meio WHERE nomeEntidade = :nomeentidade AND numMeio =:nummeio;");
@@ -132,7 +130,7 @@
         $prep = $db->prepare("SELECT COUNT(*) AS total FROM meioApoio WHERE numMeio = :nMeio AND nomeEntidade = :nEntidade;");
         $prep->bindParam(':nMeio', $_REQUEST['nummeio']);
         $prep->bindParam(':nEntidade', $_REQUEST['nomeentidade']);
-        $prep->execute(); 
+        $prep->execute();
         foreach($prep as $row){
           if($row['total']<=1){
             $prep = $db->prepare("DELETE FROM meio WHERE nomeEntidade = :nomeentidade AND numMeio =:nummeio;");
@@ -151,7 +149,7 @@
         $prep = $db->prepare("SELECT COUNT(*) AS total FROM meioSocorro WHERE numMeio = :nMeio AND nomeEntidade = :nEntidade;");
         $prep->bindParam(':nMeio', $_REQUEST['nummeio']);
         $prep->bindParam(':nEntidade', $_REQUEST['nomeentidade']);
-        $prep->execute(); 
+        $prep->execute();
         foreach($prep as $row){
           if($row['total']<=1){
             $prep = $db->prepare("DELETE FROM meio WHERE nomeEntidade = :nomeentidade AND numMeio =:nummeio;");
@@ -258,7 +256,7 @@
 
   } catch (PDOException $e) {
     echo("<div align='center'><br><p>ERROR: {$e->getMessage()}</p>");
-    echo("<a href='a1.php'><button class='btn btn-dark' style='background: #000000 !important;color: #ffffff' type='button'>Tente outra vez</button></a></div>");
+    echo("<a href='b.php'><button class='btn btn-dark' style='background: #000000 !important;color: #ffffff' type='button'>Tente outra vez</button></a></div>");
   }
   ?>
   </body>

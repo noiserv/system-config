@@ -57,7 +57,7 @@
     $result = $prep->fetchAll();
 
     echo("<br><br>");
-    echo("<h1 align='center'><strong>Meios</h1>");
+    echo("<div style='margin-left:350px;max-width:800px'><h1 align='center'><strong>Meios</h1>");
     echo("<table border=\"2\" align='center'>");
     echo("<tr><td align='center'><b><strong>N&uacute;mero dos Meios:</b></td><td align='center'><b><strong>Nome dos Meios:</b></td><td align='center'><b><strong>Nome das entidades:</b></td><td></td></tr>");
 
@@ -89,7 +89,7 @@
       echo("</td><td><a href=\"a2.php?mode=delete&type=entidade&nomeentidade={$row['nomeentidade']}\">Delete</a></td></tr>\n");
     }
     echo("</table>");
-    echo("<br><br>");
+    echo("<br><br></div>");
 
     $result = null;
     $db = null;
