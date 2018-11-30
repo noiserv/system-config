@@ -116,7 +116,7 @@
 
     echo("<div style='margin-left:400px;max-width:800px'><br><br><h1 align='center'><strong>Zonas</h1>\n");
     echo("<table border=\"2\" align='center'>");
-    echo("<tr><td><b><strong>Moradas:</b></td><td></td></tr>");
+    echo("<tr><td align='center'><b><strong>Moradas:</b></td><td></td></tr>");
 
     foreach($result as $row) {
       echo("<tr><td align='center'>");
