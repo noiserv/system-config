@@ -1,14 +1,14 @@
 -- Query 1
 
-  SELECT e.numProcessoSocorro FROM(
+  SELECT res.numProcessoSocorro FROM(
     SELECT * FROM (
-        (SELECT Max(a.total) AS total FROM
-  	 	     (SELECT numProcessoSocorro,COUNT(*) AS total FROM acciona GROUP BY numProcessoSocorro ) numacion 
-        )b
+        (SELECT Max(numacion.total) AS total FROM
+  	 	     (SELECT numProcessoSocorro,COUNT(*) AS total FROM acciona GROUP BY numProcessoSocorro ) numacion
+        )aciontotal
     NATURAL JOIN
-        (SELECT numProcessoSocorro,COUNT(*) AS total FROM acciona GROUP BY numProcessoSocorro)c
-    )d
-  )e;
+        (SELECT numProcessoSocorro,COUNT(*) AS total FROM acciona GROUP BY numProcessoSocorro)nnumacion
+    )maxi
+  )res;
 
 
 -- Query 2
