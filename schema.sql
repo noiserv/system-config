@@ -72,7 +72,7 @@ CREATE TABLE eventoEmergencia (
 );
 
 CREATE TABLE entidadeMeio (
-    nomeEntidade VARCHAR(255)  NOT NULL unique,
+    nomeEntidade VARCHAR(255)  NOT NULL unique CHECK (nomeEntidade <> ''),
     PRIMARY KEY(nomeEntidade)
 );
 
