@@ -47,7 +47,7 @@
         echo($row['nomeentidade']);
         echo("</td></tr>\n");
     }
-    echo("</table>\n");
+    echo("</table><br><br>\n");
 
     $db = null;
     
