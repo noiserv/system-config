@@ -24,12 +24,8 @@ foreach($result as $row){
   }
 }
 elseif($type=='entidade'){
-    if ( $_REQUEST['nomeentidade'] != ''){
     $result = $db->prepare("INSERT INTO entidadeMeio VALUES(:nomeEntidade);");
     $result->bindParam(':nomeEntidade', $_REQUEST['nomeentidade']);
     $result->execute();
-  }else{
-    echo("Nome de entidade nao pode ser vazio");
-  }
 }
 ?>
