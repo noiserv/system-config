@@ -44,16 +44,14 @@ CREATE TABLE segmentoVideo (
 );
 
 CREATE TABLE zona (
-    moradaLocal VARCHAR(255) UNIQUE NOT NULL, 
-    PRIMARY KEY(moradaLocal),
-     CHECK (moradaLocal <> '')
+    moradaLocal VARCHAR(255) UNIQUE NOT NULL CHECK (moradaLocal <> ''),
+    PRIMARY KEY(moradaLocal)
 );
 
 CREATE TABLE vigia (
-  moradaLocal VARCHAR(255) NOT NULL, 
+  moradaLocal VARCHAR(255) NOT NULL,
   camNum integer NOT NULL ,
   PRIMARY KEY(moradaLocal,camNum),
-  FOREIGN KEY(camNum) REFERENCES camara(camNum)  ON DELETE CASCADE ON UPDATE CASCADE,
   FOREIGN KEY(moradaLocal) REFERENCES zona(moradaLocal)  ON DELETE CASCADE ON UPDATE CASCADE
 );
 
@@ -155,7 +153,7 @@ CREATE TABLE audita(
   FOREIGN KEY(idCoordenador) REFERENCES coordenador(idCoordenador)  ON DELETE CASCADE ON UPDATE CASCADE,
   FOREIGN KEY(numMeio,nomeEntidade,numProcessoSocorro) REFERENCES acciona(numMeio, nomeEntidade,numProcessoSocorro)  ON DELETE CASCADE ON UPDATE CASCADE,
   CHECK (datahoraFim > datahoraInicio),
-  CHECK (dataAuditoria >= NOW())
+  CHECK (dataAuditoria <= NOW())
 );
 
 CREATE TABLE solicita(
