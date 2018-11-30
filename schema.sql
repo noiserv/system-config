@@ -154,7 +154,7 @@ CREATE TABLE audita(
   FOREIGN KEY(idCoordenador) REFERENCES coordenador(idCoordenador)  ON DELETE CASCADE ON UPDATE CASCADE,
   FOREIGN KEY(numMeio,nomeEntidade,numProcessoSocorro) REFERENCES acciona(numMeio, nomeEntidade,numProcessoSocorro)  ON DELETE CASCADE ON UPDATE CASCADE,
   CHECK (datahoraFim > datahoraInicio),
-  CHECK (dataAuditoria >= NOW())
+  CHECK (dataAuditoria <= NOW())
 );
 
 CREATE TABLE solicita(
